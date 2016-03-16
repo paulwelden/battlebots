@@ -19,7 +19,7 @@ app.get("/", function (req, res) {
 });
 
 app.post("/", function (req, res) {
-	var botAI = new Function('game', 'moves', req.body.script);
+	var botAI = new Function('me', 'game', 'moves', req.body.script);
 	var botColor = req.body.color;
 	var botName = req.body.userName;
 	var botType = req.body.type;
