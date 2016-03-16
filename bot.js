@@ -1,5 +1,5 @@
 'use strict';
-var coordinate = require('./Coordinate');
+var coordinate = require('./coordinate');
 
 module.exports = class bot {
 	constructor(name, color, startingPosition, ai) {

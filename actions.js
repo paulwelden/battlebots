@@ -1,5 +1,5 @@
 'use strict';
-var coord = require('./Coordinate');
+var coord = require('./coordinate');
 
 module.exports = class actions {
 	constructor() {

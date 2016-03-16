@@ -1,6 +1,6 @@
 var assert = require('assert');
 var should = require('should');
-var ActionEval = require('../ActionEval');
+var ActionEval = require('../actionEval');
 var actions = require('../actions');
 var gameState = require('../gameState');
 
