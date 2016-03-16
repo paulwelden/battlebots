@@ -8,7 +8,6 @@ var gamestate = require('./gameState');
 var actionEval = require('./actionEval');
 var projectileEval = require('./projectileEval');
 var gameEngine = require('./gameEngine');
-var paulBot = require('./paulsReallySadBot.js');
 
 http.listen(3000);
 app.use(express.static(path.join(__dirname, 'public')));
