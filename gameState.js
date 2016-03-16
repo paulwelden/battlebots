@@ -1,38 +1,42 @@
-"use strict";
+'use strict';
 
-module.exports = class GameState {
+module.exports = class gameState {
 	constructor() {
 		this.activeBots = [];
 		this.projectiles = [];
 	}
 
-	static createBot(name, color, type, ai) {
-		var startingPosition = determineStartingPosition();
-		var bot;
+	createBot(name, color, type, ai) {
+		var startingPosition = gameState.determineStartingPosition();
+		var bot = require('./bot');
+		var newBot;
 		switch(type) {
 			case "blueBot":
-				bot = new Bot(name, color, startingPosition, ai);
+				newBot = new bot(name, color, startingPosition, ai);
 				break;
 			default:
-				bot = new Bot(name, color, startingPosition, ai);
+				newBot = new bot(name, color, startingPosition, ai);
 		}
-		return bot;
+		return newBot;
 	}
 
 	static determineStartingPosition() {
+		var constants = require('./constants');
 		var x = Math.floor(
 				(
-					Math.rand() * (constants.WORLD_WIDTH -
-					(constants.BOT_SIZE / 2)) + (constants.BOT_SIZE / 2)
+					Math.random() * (constants.WORLD_WIDTH() -
+					(constants.BOT_SIZE() / 2)) + (constants.BOT_SIZE() / 2)
 				)
 			);
 		var y = Math.floor(
 				(
-					Math.rand() * (constants.WORLD_WIDTH -
-					(constants.BOT_SIZE / 2)) + (constants.BOT_SIZE / 2)
+					Math.random() * (constants.WORLD_WIDTH() -
+					(constants.BOT_SIZE() / 2)) + (constants.BOT_SIZE() / 2)
 				)
 			);
-		var coord = new Coordinate(x, y);
+
+		var coordinate = require('./coordinate');
+		var coord = new coordinate(x, y);
 		return coord;
 	}
 }

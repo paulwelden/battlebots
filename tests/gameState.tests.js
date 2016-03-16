@@ -20,9 +20,9 @@ describe('gameState', function () {
 			bot.position.x.should.be.above(0);
 			bot.position.x.should.be.below(800);
 			bot.position.y.should.be.above(0);
-			bot.position.y.should.be.above(800);
+			bot.position.y.should.be.below(800);
 			bot.name.should.be.eql('Mr Test');
-			bot.name.should.be.eql('red');
+			bot.color.should.be.eql('red');
 			should.exist(bot.ai);
 		});
 	});

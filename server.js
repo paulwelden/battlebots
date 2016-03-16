@@ -12,19 +12,24 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 app.get("/", function (req, res) {
-	res.sendFile(__dirname + "/index.html");
+  res.sendFile(__dirname + "/index.html");
 });
 
-app.get("/upload", function (req, res) {
-	res.sendFile(__dirname + "/upload.html");
-});
+app.post("/", function (req, res) {
+	var botAI = new Function('Game', req.body.script);
+	var botColor = req.body.color;
+	var botName = req.body.userName;
+	var botType = req.body.type;
 
-app.post("/upload", function (req, res, next) {
-	console.log(req.body.botLogic);
-	var result = new Function('Game', req.body.botLogic);
-	result(gameObject);
-	//event loop
-	res.sendFile(__dirname + "/upload.html");
+	var newBot = game.createBot(botName, botColor, botType, botAI);
+	var checkBot = game.activeBots[botName];
+	if (!checkBot)
+		game.activeBots[botName] = newBot;
+
+	console.log(game.activeBots[botName]);
+	console.log(game.activeBots);
+  //event loop
+	//res.sendFile(__dirname + "/upload.html");
 });
 
 var game = new gamestate();
@@ -32,9 +37,9 @@ var game = new gamestate();
 var clients = {};
 io.on('connection', function (socket) {
 	clients[socket.id] = socket;
-	socket.on('newbot', function (data) {
-		game.bots.push(data);
-	});
+	//socket.on('newbot', function (data) {
+	//	game.bots.push(data);
+	//});
 });
 
 function gameEngineTick() {

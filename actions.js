@@ -1,6 +1,6 @@
-"use strict";
+'use strict';
 
-class actions {
+module.exports = class actions {
   static aim(radians) {
 
   }

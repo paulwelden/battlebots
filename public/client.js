@@ -4,6 +4,22 @@ $(document).ready(function () {
 
 	var socket = io.connect();
 
+	$("#userForm").submit(function(e) {
+		$.ajax({
+		   type: "POST",
+		   url: "/",
+		   data: $("#userForm").serialize(), // serializes the form's elements.
+		   success: function(data)
+		   {
+		       $("#userForm").hide();
+		   }
+		 });
+
+	    e.preventDefault(); // avoid to execute the actual submit of the form.
+	});
+
+
+
 	socket.on('tick', function (data) {
 		paintArena(data);
 	});
@@ -66,7 +82,7 @@ $(document).ready(function () {
 			paintBot(data.bots[bot]);
 		}
 	}
-	
+
 	function paintBot(bot) {
 		ctx.save();
 
@@ -130,7 +146,7 @@ $(document).ready(function () {
 
 		ctx.restore();
 	}
-	
+
 	function paintBackground() {
 		ctx.fillStyle = "white";
 		ctx.fillRect(0, 0, 800, 800);
