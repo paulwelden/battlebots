@@ -29,6 +29,8 @@ module.exports = class projectileEval {
 
 		for (var botKey in gameStateToEval.activeBots) {
 			var botToEval = gameStateToEval.activeBots[botKey];
+			//console.log(projectileObj);
+			
 
 			var botObj = {
 				width : constants.BOT_SIZE(),
@@ -38,12 +40,26 @@ module.exports = class projectileEval {
 
 			};
 
-			if (collisionDetection.eval(projectileObj, botObj)) {
+			if (projectileEval.evalCollision(projectileObj, botObj)) {
+			    console.log('collision');
+			    console.log(projectileObj);
+			    console.log(botObj);
 				botToEval.health = botToEval.health - 6;
 				botToEval.isHit = true;
 				return true;
 			}
 		}
 		return false;
+	}
+
+    static evalCollision(obj1, obj2){
+        if(obj1.x < obj2.x + obj2.width && 
+            obj1.x + obj1.width > obj2.x &&
+            obj1.y < obj2.y + obj2.height &&
+            obj1.y + obj1.height > obj2.y)
+        {
+            return true;
+        }
+        return false;
 	}
 }

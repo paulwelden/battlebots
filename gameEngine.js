@@ -11,6 +11,7 @@ module.exports = class gameEngine{
         var actionsToDo = [];
         for (var botName in game.activeBots) {
             var bot = game.activeBots[botName];
+            bot.isHit = false;
             var action = new actions();
             bot.ai(game, action);
             actionsToDo[bot.name] = action;
