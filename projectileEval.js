@@ -13,6 +13,14 @@ module.exports = class projectileEval {
 	    console.log(projectileToEval);
 	    actionEval.moveForward(projectileToEval.speed, projectileToEval);
 
+        //If it is off the map record it as a collision
+	    if(projectileToEval.position.x > constants.WORLD_WIDTH() || projectileToEval.position.x < 0){
+	        return true;
+	    }
+	    if(projectileToEval.position.y > constants.WORLD_HEIGHT() || projectileToEval.position.y < 0){
+	        return true;
+	    }
+
 		var projectileObj = {
 			width: 1,
 			height: 1,

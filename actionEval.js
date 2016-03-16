@@ -5,6 +5,7 @@ var gameState = require('./gameState');
 var projectile = require('./projectile');
 var constants = require('./constants');
 var collisions = require('./collisionDetection');
+var deepcopy = require('deepcopy');
 
 module.exports = class actionEval {
 
@@ -80,9 +81,10 @@ module.exports = class actionEval {
 	}
 
     static fire(botToFire, gState) {
-	    console.log('fired');
-		var bullet = new projectile(bot.facing, 20, bot.position);
+        //var positionCopy = deepcopy(botToFire.position);
+        var positionCopy = JSON.parse(JSON.stringify(botToFire.position));
+        var bullet = new projectile(botToFire.facing, 20, positionCopy);
 		gState.projectiles.push(bullet);
-		bot.shotCooldown = 10;
+		botToFire.shotCooldown = 10;
 	}
 }
