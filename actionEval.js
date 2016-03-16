@@ -61,12 +61,7 @@ module.exports = class actionEval {
 					distanceTo = botToEval.speed;
 				}
 				distanceTo = moveTime * distanceTo;
-				console.log('before moving');
-				console.log(botToEval.name);
-				console.log(botToEval.position);
-				console.log(distanceTo);
 				actionEval.moveForward(distanceTo, botToEval);
-				console.log(botToEval.position);
 			}
 		}
 		var botBox={
