@@ -18,7 +18,9 @@ $(document).ready(function () {
 	    e.preventDefault(); // avoid to execute the actual submit of the form.
 	});
 
+	socket.on('scorebaord', function (data) {
 
+	});
 
 	socket.on('tick', function (data) {
 		paintArena(data);

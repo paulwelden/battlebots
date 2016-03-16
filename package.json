@@ -1,10 +1,11 @@
 {
   "name": "yes",
+  "name": "battlebots",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "bots that battle",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "find ./tests -name '*.tests.js' | xargs mocha -R spec"
   },
   "repository": {
     "type": "git",
@@ -19,11 +20,11 @@
   "dependencies": {
     "body-parser": "^1.15.0",
     "express": "^4.13.4",
-    "mocha": "^2.4.5",
     "socket.io": "^1.4.5",
     "socket.io-client": "^1.4.5"
   },
   "devDependencies": {
-    "should": "^8.2.2"
+	"should": "^8.2.2",
+	"mocha": "^2.4.5"
   }
 }
