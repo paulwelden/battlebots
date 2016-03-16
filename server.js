@@ -12,14 +12,16 @@ var paulBot = require('./paulsReallySadBot.js');
 
 http.listen(3000);
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+	extended: true
+}));
 
-app.get("/", function (req, res) {
+app.get("/", function(req, res) {
 	res.sendFile(__dirname + "/index.html");
 });
 
 app.post("/", function (req, res) {
-	var botAI = new Function('game', 'moves', req.body.script);
+	var botAI = new Function('me', 'game', 'moves', req.body.script);
 	var botColor = req.body.color;
 	var botName = req.body.userName;
 	var botType = req.body.type;
@@ -35,16 +37,16 @@ var game = new gamestate();
 game.activeBots['paul'] = game.createBot('paul', '#0000FF', '', paulBot);
 
 var clients = {};
-io.on('connection', function (socket) {
+io.on('connection', function(socket) {
 	clients[socket.id] = socket;
 });
 
 function gameEngineTick() {
-    gameEngine.tick(game);
+	gameEngine.tick(game);
 
 	for (var c in clients) {
 		clients[c].emit('tick', game);
 	}
 }
 
-setInterval(gameEngineTick, 100);
+setInterval(gameEngineTick, 50);

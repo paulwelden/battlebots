@@ -5,6 +5,7 @@ var actionEval = require('./actionEval');
 var projectileEval = require('./projectileEval');
 var deepcopy = require('deepcopy');
 
+
 module.exports = class gameEngine{
 
     static tick(game) {
@@ -17,28 +18,32 @@ module.exports = class gameEngine{
             actionsToDo[bot.name] = action;
 			if (bot.shotCooldown  > 0) {
 				bot.shotCooldown--;
-        }
+			}
 		}
 		var existingProjectiles = [];
 
-        //do projectile moves
-        for (var projectileKey in game.projectiles) {
-            var projectile = game.projectiles[projectileKey];
-
-			if(!projectileEval.eval(projectile, game)) {
+		//do projectile moves
+		for (var projectileKey in game.projectiles) {
+			var projectile = game.projectiles[projectileKey];
+			if (!projectileEval.eval(projectile, game)) {
 				//We can keep the projectile
 				existingProjectiles.push(projectile);
+			}
+		}
+		game.projectiles = existingProjectiles;
+		for (var actionKey in actionsToDo) {
+			var action = actionsToDo[actionKey];
 
-            }
-        }
-        game.projectiles = existingProjectiles;
+			var bot = game.activeBots[actionKey];
 
-        for (var actionKey in actionsToDo) {
-            var action = actionsToDo[actionKey];
+			actionEval.eval(action, game.activeBots[actionKey], game);
+		}
 
-            var bot = game.activeBots[actionKey];
+		function clone(orig) {
+			let origProto = Object.getPrototypeOf(orig);
+			return Object.assign(Object.create(origProto), orig);
+		}
 
-            actionEval.eval(action, game.activeBots[actionKey], game);
-        }
-    }
+	}
+
 }

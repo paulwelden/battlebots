@@ -99,20 +99,6 @@ $(document).ready(function () {
 
 		// the tank's gun
 		ctx.fillRect(0, -3, 35, 5);
-
-		// the tank's laser aim
-		/*
-		if (botEffects[bot.name].shotEffectCountdown > 0) {
-			ctx.fillStyle = "Red";
-			ctx.fillRect(35, -2, 390, 3);
-			botEffects[bot.name].shotEffectCountdown--;
-		} else if (bot.shotCooldown === 0) {
-			ctx.fillStyle = "#EE8181";
-			for (var i = 0; i < 15; i++) {
-				ctx.fillRect(50 + (i * 20), -2, 5, 3);
-			}
-		}*/
-
 		ctx.restore();
 	}
 
