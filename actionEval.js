@@ -39,7 +39,7 @@ module.exports = class actionEval {
 					distanceTo = botToEval.speed;
 				}
 				distanceTo = moveTime * distanceTo;
-				moveForward(distanceTo, botToEval);
+				actionEval.moveForward(distanceTo, botToEval);
 			}
 		}
 
