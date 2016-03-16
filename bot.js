@@ -14,7 +14,6 @@ class Bot {
 		this.hasShot = false;
 		this.ai = ai;
 	}
-
 	distanceTo(bot) {
 		if(!(bot instanceof Bot)) {
 			throw "Not of type Bot";
