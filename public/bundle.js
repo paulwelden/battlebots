@@ -1,33 +1,61 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
 
-module.exports = class constants {
-	static BOT_SIZE() {
-		return 31;
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+module.exports = function () {
+	function constants() {
+		_classCallCheck(this, constants);
 	}
 
-	static WORLD_WIDTH() {
-		return 800;
-	}
+	_createClass(constants, null, [{
+		key: 'BOT_SIZE',
+		value: function BOT_SIZE() {
+			return 31;
+		}
+	}, {
+		key: 'WORLD_WIDTH',
+		value: function WORLD_WIDTH() {
+			return 800;
+		}
+	}, {
+		key: 'WORLD_HEIGHT',
+		value: function WORLD_HEIGHT() {
+			return 800;
+		}
+	}, {
+		key: 'PROJECTILE_WIDTH',
+		value: function PROJECTILE_WIDTH() {
+			return 5;
+		}
+	}, {
+		key: 'PROJECTILE_HEIGHT',
+		value: function PROJECTILE_HEIGHT() {
+			return 9;
+		}
+	}, {
+		key: 'ConvertToDegreesFromRadians',
+		value: function ConvertToDegreesFromRadians(radians) {
+			return radians * 180 / Math.PI;
+		}
+	}, {
+		key: 'ConvertToRadiansFromDegrees',
+		value: function ConvertToRadiansFromDegrees(degrees) {
+			return degrees * Math.PI / 180;
+		}
+	}, {
+		key: 'calculateNewPosition',
+		value: function calculateNewPosition(distance, position, angle) {}
+	}]);
 
-	static WORLD_HEIGHT() {
-		return 800;
-	}
-
-	static PROJECTILE_WIDTH() {
-		return 5;
-	}
-
-	static PROJECTILE_HEIGHT() {
-		return 9;
-	}
-
-	static ConvertToDegreesFromRadians(radians) {
-		return radians * 180 / Math.PI;
-	}
-}
+	return constants;
+}();
 
 },{}],2:[function(require,module,exports){
+"use strict";
+
 var constants = require('../constants');
 
 $(document).ready(function () {
@@ -40,17 +68,15 @@ $(document).ready(function () {
 			type: "POST",
 			url: "/",
 			data: $("#userForm").serialize(), // serializes the form's elements.
-			success: function (data) {
-				$("#userForm").hide();
+			success: function success(data) {
+				$("#addNewBot").hide();
 			}
 		});
 
 		e.preventDefault(); // avoid to execute the actual submit of the form.
 	});
 
-	socket.on('scorebaord', function (data) {
-
-	});
+	socket.on('scorebaord', function (data) {});
 
 	socket.on('tick', function (data) {
 		paintArena(data);
@@ -132,7 +158,7 @@ $(document).ready(function () {
 		} else if (bot.shotCooldown === 0) {
 			ctx.fillStyle = "#EE8181";
 			for (var i = 0; i < 15; i++) {
-				ctx.fillRect(50 + (i * 20), -2, 5, 3);
+				ctx.fillRect(50 + i * 20, -2, 5, 3);
 			}
 		}
 
