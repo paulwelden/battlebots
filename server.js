@@ -12,9 +12,11 @@ var paulBot = require('./paulsReallySadBot.js');
 
 http.listen(3000);
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+	extended: true
+}));
 
-app.get("/", function (req, res) {
+app.get("/", function(req, res) {
 	res.sendFile(__dirname + "/index.html");
 });
 
@@ -35,12 +37,12 @@ var game = new gamestate();
 game.activeBots['paul'] = game.createBot('paul', '#0000FF', '', paulBot);
 
 var clients = {};
-io.on('connection', function (socket) {
+io.on('connection', function(socket) {
 	clients[socket.id] = socket;
 });
 
 function gameEngineTick() {
-    gameEngine.tick(game);
+	gameEngine.tick(game);
 
 	for (var c in clients) {
 		clients[c].emit('tick', game);
