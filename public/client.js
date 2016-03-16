@@ -33,15 +33,15 @@ $(document).ready(function () {
 		for (var bot in data.activeBots) {
 			paintBot(data.activeBots[bot]);
 		}
-		for (var projectile in data.projectiles) {
-			paintProjectile(data.projectiles[projectile]);
+		for (var i = 0; i < data.projectiles.length; i++) {
+			paintProjectile(data.projectiles[i]);
 		}
 	}
 
 	function paintProjectile(projectile) {
 		ctx.fillStyle = 'black';
 		ctx.beginPath();
-		ctx.arc(projectile.x, projectile.y, 5, 0, 2 * Math.PI);
+		ctx.arc(projectile.position.x, projectile.position.y, 5, 0, 2 * Math.PI);
 		ctx.closePath();
 		ctx.fill();
 	}
