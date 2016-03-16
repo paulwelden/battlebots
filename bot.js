@@ -19,7 +19,7 @@ module.exports = class bot {
 
 	distanceTo(coord) {
 		if (!(coord instanceof coordinate)) {
-			throw "Not of type coordinate";
+			throw coord + " is not of type coordinate";
 		}
 		var dx = this.position.x - coord.x;
 		var dy = this.position.y - coord.y;
@@ -39,7 +39,7 @@ module.exports = class bot {
 
 	angleTo(coord, currentDirection) {
 		if (!(coord instanceof coordinate)) {
-			throw "Not of type coordinate";
+			throw coord + " is not of type coordinate";
 		}
 		var dx = this.position.x - coord.x;
 		var dy = this.position.y - coord.y;

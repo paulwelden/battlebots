@@ -19,8 +19,7 @@ describe('bot', function () {
 	describe('#distainceTo(bot)', function () {
 		it('should determine distance between bots', function () {
 			var bot1 = new bot('bot1', 'red', new coordinate(100,250), function () { });
-			var bot2 = new bot('bot2', 'blue', new coordinate(100,250), function () { });
-			var distance = bot1.distanceTo(bot2);
+			var distance = bot1.distanceTo(new coordinate(100,350));
 
 			distance.should.be.eql(100);
 		});
@@ -29,8 +28,7 @@ describe('bot', function () {
 	describe('#angleTo(bot)', function () {
 		it('should determine angle between bots', function () {
 			var bot1 = new bot('bot1', 'red', new coordinate(100, 250), function () { });
-			var bot2 = new bot('bot2', 'blue', new coordinate(100, 250), function () { });
-			var angle = bot1.angleTo(bot2);
+			var angle = bot1.angleTo(new coordinate(95,350));
 
 			angle.should.be.eql(-45);
 		});
