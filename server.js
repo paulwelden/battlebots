@@ -4,6 +4,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var bodyParser = require('body-parser');
 var path = require('path');
+var gamestate = require('./gameState');
 
 http.listen(3000);
 app.use(express.static(path.join(__dirname, 'public')));
@@ -28,32 +29,23 @@ app.post("/upload", function(req, res, next) {
   res.sendFile(__dirname + "/upload.html");
 });
 
-io.on('connection', function(socket) {
-  console.log('client connected');
-  socket.emit('test', Date.now());
-});
-
-http.listen(3000, function() {
-  console.log('Example app listening on port 3000!');
-});
-
-var game = new GameState();
+var game = new gamestate();
 
 var clients = {};
 io.on('connection', function (socket) {
 	clients[socket.id] = socket;
 	socket.on('newbot', function (data) {
-		arena.bots.push(data);
+		game.bots.push(data);
 	});
 });
 
 function gameEngineTick() {
-	for (var bot in arena.bots) {
+	for (var bot in game.bots) {
 		eval(bot.ai);
 	}
 
 	for (var c in clients) {
-		clients[c].emit('tick', arena);
+		clients[c].emit('tick', game);
 	}
 }
 setInterval(gameEngineTick, 50);

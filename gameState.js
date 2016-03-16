@@ -1,6 +1,6 @@
 "use strict";
 
-class GameState {
+module.exports = class GameState {
 	constructor() {
 		this.activeBots = [];
 		this.projectiles = [];
