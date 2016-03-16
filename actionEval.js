@@ -3,6 +3,7 @@ var actions = require('./actions');
 var bot = require('./bot');
 var gameState = require('./gameState');
 var projectile = require('./projectile');
+var constants = require('./constants');
 
 module.exports = class actionEval {
 
@@ -20,9 +21,9 @@ module.exports = class actionEval {
 		if (targetCoord) {
 		    //TODO need to do hit detection bot -> bot and bot -> wall
 			var angleTo = botToEval.angleToMove(targetCoord);
+
 			var distanceTo = botToEval.distanceTo(targetCoord);
 			var turnTime = Math.abs(angleTo) / botToEval.turnRate;
-
 			if (angleTo !== 0) {
 				// TODO collision detection
 				if(turnTime >= 1) {
@@ -30,8 +31,8 @@ module.exports = class actionEval {
 					angleTo = (angleTo / Math.abs(angleTo)) * botToEval.turnRate;
 				}
 				botToEval.heading += angleTo;
+				botToEval.heading %= 360;
 			}
-
 			if (distanceTo !== 0) {
 				//TODO move
 				var moveTime = 1 - turnTime;
@@ -66,9 +67,11 @@ module.exports = class actionEval {
 		//change facing according to bots defined facing rate
 	}
 
-	static moveForward(int, botToMoveForward) {
+	static moveForward(distanceTo, botToMoveForward) {
 		//move forwards according to the bots defined movement rate
-
+		var radiansFromDegree = 	constants.ConvertToRadiansFromDegrees( botToMoveForward.heading);
+		botToMoveForward.position.x += distanceTo * Math.cos(radiansFromDegree);
+		botToMoveForward.position.y += distanceTo * Math.sin(radiansFromDegree);		
 	}
 
 	static moveBackward(int, botToMoveBackward, gState) {

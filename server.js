@@ -46,7 +46,7 @@ function gameEngineTick() {
 		clients[c].emit('tick', game);
 	}
 }
-setInterval(gameEngineTick, 50);
+setInterval(gameEngineTick, 500);
 
 function haveHit(obj1, obj2)
 {

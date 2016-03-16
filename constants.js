@@ -25,6 +25,10 @@ module.exports = class constants {
 		return radians * 180 / Math.PI;
 	}
 
+	static ConvertToRadiansFromDegrees(degrees) {
+		return degrees * Math.PI / 180;
+	}
+
 	static calculateNewPosition(distance, position, angle) {
 
 	}

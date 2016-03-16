@@ -1,5 +1,6 @@
 'use strict';
 var coordinate = require('./coordinate');
+var constants = require('./constants');
 
 module.exports = class bot {
 	constructor(name, color, startingPosition, ai) {
@@ -38,17 +39,13 @@ module.exports = class bot {
 	}
 
 	angleTo(coord, currentDirection) {
-	    console.log(coord);
-	    console.log(coordinate);
 		if (!(coord instanceof coordinate)) {
 			throw "Not of type coordinate";
 		}
-		var dx = this.position.x - coord.x;
-		var dy = this.position.y - coord.y;
-
+		var dx = coord.x - this.position.x ;
+		var dy = coord.y - this.position.y ;
 		var angleRadians = Math.atan2(dy, dx);
-		var angleDiff = -(angleRadians - currentDirection);
-
+		var angleDiff = (  constants.ConvertToDegreesFromRadians( angleRadians) - currentDirection) % 360;
 		return angleDiff;
 	}
 }
