@@ -1,10 +1,9 @@
 $(document).ready(function () {
 	var canvas = $("#canvas")[0];
 	var ctx = canvas.getContext("2d");
-
 	var socket = io.connect();
 
-	$("#userForm").submit(function(e) {
+	$("#userForm").submit(function (e) {
 		$.ajax({
 		   type: "POST",
 		   url: "/",
@@ -16,6 +15,7 @@ $(document).ready(function () {
 		 });
 
 	    e.preventDefault(); // avoid to execute the actual submit of the form.
+
 	});
 
 	socket.on('scorebaord', function (data) {
@@ -27,61 +27,10 @@ $(document).ready(function () {
 	});
 
 	var botEffects = {};
-
-	var timer = 0;
 	function paintArena(data) {
-		var data = {
-			bots: [
-				{
-					name: "Frank",
-					color: "red",
-					health: 100,
-					position: {
-						x: 300,
-						y: 250 + (timer * 5)
-					},
-					heading: 90,
-					facing: 180,
-					shotCooldown: timer > 10 && timer < 50 ? 1 : 0,
-					isHit: false,
-					hasShot: false
-				},
-				{
-					name: "Steve",
-					color: "blue",
-					health: 80,
-					position: {
-						x: 120,
-						y: 600
-					},
-					heading: 75 + (timer * 10),
-					facing: 45,
-					shotCooldown: 0,
-					isHit: timer === 10 ? true : false,
-					hasShot: false
-				},
-				{
-					name: "Billy Bob",
-					color: "green",
-					health: 30,
-					position: {
-						x: 400,
-						y: 400
-					},
-					heading: 0,
-					facing: timer * 10,
-					shotCooldown: 0,
-					isHit: timer === 70 ? true : false,
-					hasShot: timer === 50 ? true : false
-				}
-			]
-		};
-		timer++;
-		if (timer > 100) timer = 0;
-
 		paintBackground();
-		for (var bot in data.bots) {
-			paintBot(data.bots[bot]);
+		for (var bot in data.activeBots) {
+			paintBot(data.activeBots[bot]);
 		}
 	}
 
@@ -91,7 +40,7 @@ $(document).ready(function () {
 		// move/rotate the context to the tank's positioning
 		ctx.translate(bot.position.x, bot.position.y);
 		ctx.rotate(bot.heading * Math.PI / 180);
-		
+
 		// translate hit/shot events into client-side counters
 		if (botEffects[bot.name] === undefined) {
 			botEffects[bot.name] = {
@@ -133,7 +82,7 @@ $(document).ready(function () {
 		// the tank's gun
 		ctx.rotate(bot.facing * Math.PI / 180);
 		ctx.fillRect(0, -3, 35, 5);
-		
+
 		// the tank's laser aim
 		if (botEffects[bot.name].shotEffectCountdown > 0) {
 			ctx.fillStyle = "Red";

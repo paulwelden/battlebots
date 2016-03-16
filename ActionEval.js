@@ -1,9 +1,39 @@
 'use strict';
 
-module.exports = class actionEval{
+module.exports = class actionEval {
 
 	static eval(action, bot, gameState) {
-		//determine what actions the bot wants to make
+		if (!(action instanceof Action)) {
+			throw "action is garbage";
+		}
+		if (!(bot instanceof Bot)) {
+			throw "bot is garbage";
+		}
+		if (!(gameState instanceof GameState)) {
+			throw "gameState is garbage";
+		}
+		var targetCoord = action.MoveTowardsPosition;
+		if (targetCoord) {
+			//TODO need to do hit detection bot -> bot and bot -> wall
+			var angleTo = bot.angleTo(targetCoord);
+			if (angleTo !== 0) {
+				//TODO turn
+			}
+			var distanceTo = bot.distanceTo(targetCoord);
+			if (distanceTo !== 0) {
+				//TODO move
+			}
+		}
+		if (action.AimTowardsPosition) {
+			
+		}
+		if (action.Fire) {
+			
+		}
+	}
+
+	static needsToChangeHeading(moveToCoordinate, bot) {
+		
 	}
 
 	static changeHeading(degrees, bot, gameState) {
