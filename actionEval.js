@@ -10,12 +10,12 @@ var Projectile = require('./Projectile');
 
 module.exports = class actionEval {
 
-	static eval(action, bot, gameState) {
+	static eval(action, botToEval, gameState) {
 		if (!(action instanceof actions)) {
 			throw "action is garbage";
 		}
-		if (!(bot instanceof bot)) {
-			throw "bot is garbage";
+		if (!(botToEval instanceof bot)) {
+			throw "botToEval is garbage";
 		}
 		if (!(gameState instanceof gameState)) {
 			throw "gameState is garbage";
@@ -23,63 +23,63 @@ module.exports = class actionEval {
 		var targetCoord = action.MoveTowardsPosition;
 		if (targetCoord) {
 		    //TODO need to do hit detection bot -> bot and bot -> wall
-			var angleTo = bot.angleToMove(targetCoord);
-			var distanceTo = bot.distanceTo(targetCoord);
-			var turnTime = Math.abs(angleTo) / bot.turnRate;
+			var angleTo = botToEval.angleToMove(targetCoord);
+			var distanceTo = botToEval.distanceTo(targetCoord);
+			var turnTime = Math.abs(angleTo) / botToEval.turnRate;
 
 			if (angleTo !== 0) {
 				// TODO collision detection
 				if(turnTime >= 1) {
 					distanceTo = 0;
-					angleTo = (angleTo / Math.abs(angleTo)) * bot.turnRate;
+					angleTo = (angleTo / Math.abs(angleTo)) * botToEval.turnRate;
 				}
-				bot.heading += angleTo;
+				botToEval.heading += angleTo;
 			}
 
 			if (distanceTo !== 0) {
 				//TODO move
 				var moveTime = 1 - turnTime;
-				if(distanceTo > bot.speed) {
-					distanceTo = bot.speed;
+				if(distanceTo > botToEval.speed) {
+					distanceTo = botToEval.speed;
 				}
 				distanceTo = moveTime * distanceTo;
-				moveForward(distanceTo, bot);
+				moveForward(distanceTo, botToEval);
 			}
 		}
 
 		targetCoord = action.AimTowardsPosition
 		if (targetCoord) {
-			var angleTo = bot.angletoFace(targetCoord)
+			var angleTo = botToEval.angletoFace(targetCoord)
 			if (angleTo !== 0) {
 				// TODO turn cannon
 			}
 		}
 		if (action.Fire) {
-			if (bot.shotCooldown === 0) {
-				fire(bot, gameState);
+			if (botToEval.shotCooldown === 0) {
+				fire(botToEval, gameState);
 			}
 		}
 	}
 
-	static changeHeading(degrees, bot, gameState) {
+	static changeHeading(degrees, botToChangeHeading, gameState) {
 		//change heading according to the bots defined heading rate
 
 	}
 
-	static changeAim(degress, bot, gameState) {
+	static changeAim(degress, botToChangeAim, gameState) {
 		//change facing according to bots defined facing rate
 	}
 
-	static moveForward(int, bot) {
+	static moveForward(int, botToMoveForward) {
 		//move forwards according to the bots defined movement rate
 
 	}
 
-	static moveBackward(int, bot, gameState) {
+	static moveBackward(int, botToMoveBackward, gameState) {
 		//move backwards according to the bots defined movement rate
 	}
 
-	static fire(bot, gameState) {
+	static fire(botToFire, gameState) {
 		var bullet = new Projectile(bot.facing, 20, bot.position);
 		gameState.P
 		bot.shotCooldown = 10;

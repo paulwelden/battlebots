@@ -3,6 +3,7 @@ var should = require('should');
 var ActionEval = require('../actionEval');
 var actions = require('../actions');
 var gameState = require('../gameState');
+var bot = require('../bot');
 
 describe('ActionEval', function () {
 	describe('#eval()', function () {
