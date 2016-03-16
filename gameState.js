@@ -6,7 +6,7 @@ var constants = require('./constants');
 
 module.exports = class gameState {
 	constructor() {
-		this.activeBots = [];
+		this.activeBots = {};
 		this.projectiles = [];
 	}
 
