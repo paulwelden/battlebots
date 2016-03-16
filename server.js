@@ -15,18 +15,15 @@ app.get("/", function(req, res) {
   res.sendFile(__dirname + "/index.html");
 });
 
-app.get("/upload", function(req, res) {
-  res.sendFile(__dirname + "/upload.html");
-});
-
-app.post("/upload", function(req, res, next) {
-  console.log(req.body.botLogic);
+app.post("/", function(req, res) {
   //event loop
   //loop through custom bot scripts
-  var result = new Function('Game', req.body.botLogic);
-  result(gameObject);
+  console.log(req.body);
+  var botAI = new Function('Game', req.body.botAI);
+  //botAI();
+res.send('POST request to the homepage');
   //event loop
-  res.sendFile(__dirname + "/upload.html");
+  //res.sendFile(__dirname + "/upload.html");
 });
 
 var game = new gamestate();
