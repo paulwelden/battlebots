@@ -1,5 +1,5 @@
 'use strict';
-var coordinate = require('./Coordinate');
+var coordinate = require('./coordinate');
 
 module.exports = class bot {
 	constructor(name, color, startingPosition, ai) {
@@ -19,7 +19,7 @@ module.exports = class bot {
 
 	distanceTo(coord) {
 		if (!(coord instanceof coordinate)) {
-			throw "Not of type Bot";
+			throw "Not of type coordinate";
 		}
 		var dx = this.position.x - coord.x;
 		var dy = this.position.y - coord.y;
@@ -38,8 +38,10 @@ module.exports = class bot {
 	}
 
 	angleTo(coord, currentDirection) {
+	    console.log(coord);
+	    console.log(coordinate);
 		if (!(coord instanceof coordinate)) {
-			throw "Not of type Bot";
+			throw "Not of type coordinate";
 		}
 		var dx = this.position.x - coord.x;
 		var dy = this.position.y - coord.y;

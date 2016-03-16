@@ -8,6 +8,7 @@ var gamestate = require('./gameState');
 var actionEval = require('./actionEval');
 var projectileEval = require('./projectileEval');
 var gameEngine = require('./gameEngine');
+var paulBot = require('./paulsReallySadBot.js');
 
 http.listen(3000);
 app.use(express.static(path.join(__dirname, 'public')));
@@ -30,12 +31,14 @@ app.post("/", function (req, res) {
 	res.send('received');
 });
 
+var game = new gamestate();
+game.activeBots['paul'] = game.createBot('paul', '#0000FF', '', paulBot);
+
 var clients = {};
 io.on('connection', function (socket) {
 	clients[socket.id] = socket;
 });
 
-var game = new gamestate();
 function gameEngineTick() {
     gameEngine.tick(game);
 

@@ -1,26 +1,30 @@
 'use strict';
 var game = require('./gameState');
+var actions = require('./actions');
+var actionEval = require('./actionEval');
 
 module.exports = class gameEngine{
 
-	static tick(game) {
-		var actionsToDo = [];
+    static tick(game) {
+        var actionsToDo = [];
+        for (var botName in game.activeBots) {
+            var bot = game.activeBots[botName];
+            var action = new actions();
+            bot.ai(game, action);
+            actionsToDo[bot.name] = action;
+        }
 
-		for (var bot in game.bots) {
-			var action = new actions();
-			bot.ai(game, action);
-			actionsToDo[bot.botName] = action;
-			console.log(action);
-		}
+        //do projectile moves
+        for (var projectile in game.projectiles) {
+            projectileEval.eval(projectile, game);
+        }
 
-		//do projectile moves
-		for (var projectile in game.projectiles) {
-			projectileEval.eval(projectile, game);
-		}
+        for (var actionKey in actionsToDo) {
+            var action = actionsToDo[actionKey];
 
-		for (var action in actionsToDo) {
-			actionEval.eval(action, game.activeBots[botName], game);
-			console.log("evaluated action");
-		}
-	}
+            var bot = game.activeBots[actionKey];
+
+            actionEval.eval(action, game.activeBots[actionKey], game);
+        }
+    }
 }

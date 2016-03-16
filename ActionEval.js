@@ -22,7 +22,7 @@ module.exports = class actionEval {
 		}
 		var targetCoord = action.MoveTowardsPosition;
 		if (targetCoord) {
-			//TODO need to do hit detection bot -> bot and bot -> wall
+		    //TODO need to do hit detection bot -> bot and bot -> wall
 			var angleTo = bot.angleToMove(targetCoord);
 			var distanceTo = bot.distanceTo(targetCoord);
 			var turnTime = Math.abs(angleTo) / bot.turnRate;

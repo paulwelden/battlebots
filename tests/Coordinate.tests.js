@@ -1,6 +1,6 @@
 var assert = require('assert');
 var should = require('should');
-var Coordinates = require('../Coordinate');
+var Coordinates = require('../coordinate');
 
 describe('Coordinates', function () {
 	describe('#ctor()', function () {

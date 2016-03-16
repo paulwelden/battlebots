@@ -1,6 +1,6 @@
 var assert = require('assert');
 var should = require('should');
-var projectile = require('../Projectile');
+var projectile = require('../projectile');
 
 describe('projectile', function () {
 	describe('#ctor()', function () {
