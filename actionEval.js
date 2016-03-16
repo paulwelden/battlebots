@@ -4,7 +4,8 @@ var bot = require('./bot');
 var gameState = require('./gameState');
 var projectile = require('./projectile');
 var constants = require('./constants');
-var collisions = required('./collisionDetection');
+var collisions = require('./collisionDetection');
+var coordinate = require('./coordinate');
 
 module.exports = class actionEval {
 
@@ -33,9 +34,10 @@ module.exports = class actionEval {
 			if (targetCoord.y > constants.WORLD_HEIGHT()) {
 				targetCoord.y = constants.WORLD_HEIGHT();
 			}
+			
 
 			var angleTo = botToEval.angleToMove(targetCoord);
-
+			var oldPos=new coordinate(botToEval.position.x.toString(),botToEval.position.y.toString());
 			var distanceTo = botToEval.distanceTo(targetCoord);
 			var turnTime = Math.abs(angleTo) / botToEval.turnRate;
 			if ((angleTo >= 1 ||  angleTo <= -1) && distanceTo > 1 ) {
@@ -56,6 +58,27 @@ module.exports = class actionEval {
 				distanceTo = moveTime * distanceTo;
 				actionEval.moveForward(distanceTo, botToEval);
 			}
+		}
+		var botBox={
+		    x:botToEval.position.x,
+		    y:botToEval.position.y,
+		    height:constants.BOT_SIZE(),
+		    width:constants.BOT_SIZE()
+		};
+
+		for(var botToCollideName in gState.activeBots){
+		    if(botToCollideName==botToEval.name)
+		        continue;
+		    var botToCollide = gState.activeBots[botToCollideName];
+		    var targetBox={
+		        x:botToCollide.position.x,
+		        y:botToCollide.position.y,
+		        height:constants.BOT_SIZE(),
+		        width:constants.BOT_SIZE()
+		    };
+		    if(collisions.eval(botBox,targetBox)){
+		        botToEval.position=oldPos;
+		    }
 		}
 
 		targetCoord = action.AimTowardsPosition
@@ -79,6 +102,12 @@ module.exports = class actionEval {
 		botToMoveForward.position.y += distanceTo * Math.sin(radiansFromDegree);
 	}
 
+    static moveBackwards(distanceTo, botToMoveForward) {
+        //move forwards according to the bots defined movement rate
+	    var radiansFromDegree = 	constants.ConvertToRadiansFromDegrees( botToMoveForward.heading);
+	    botToMoveForward.position.x -= distanceTo * Math.cos(radiansFromDegree);
+	    botToMoveForward.position.y -= distanceTo * Math.sin(radiansFromDegree);
+	}
 	static fire(botToFire, gState) {
 		var bullet = new projectile(bot.facing, 20, bot.position);
 		gState.projectiles.push(bullet);
