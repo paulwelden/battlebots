@@ -1,4 +1,4 @@
-// JavaScript source code
+'use strict';
 
 module.exports = class bot {
 	constructor(name, color, startingPosition, ai) {

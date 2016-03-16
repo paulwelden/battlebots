@@ -1,11 +1,13 @@
+'use strict';
+
 module.exports = class gameState {
 	constructor() {
 		this.activeBots = [];
 		this.projectiles = [];
 	}
 
-	static createBot(name, color, type, ai) {
-		var startingPosition = determineStartingPosition();
+	createBot(name, color, type, ai) {
+		var startingPosition = gameState.determineStartingPosition();
 		var bot = require('./bot');
 		var newBot;
 		switch(type) {
@@ -19,21 +21,22 @@ module.exports = class gameState {
 	}
 
 	static determineStartingPosition() {
-		var constants = required('./constants');
-		var coordiante = required('./coordinate');
+		var constants = require('./constants');
 		var x = Math.floor(
 				(
-					Math.random() * (constants.WORLD_WIDTH -
-					(constants.BOT_SIZE / 2)) + (constants.BOT_SIZE / 2)
+					Math.random() * (constants.WORLD_WIDTH() -
+					(constants.BOT_SIZE() / 2)) + (constants.BOT_SIZE() / 2)
 				)
 			);
 		var y = Math.floor(
 				(
-					Math.random() * (constants.WORLD_WIDTH -
-					(constants.BOT_SIZE / 2)) + (constants.BOT_SIZE / 2)
+					Math.random() * (constants.WORLD_WIDTH() -
+					(constants.BOT_SIZE() / 2)) + (constants.BOT_SIZE() / 2)
 				)
 			);
-		var coord = new coordiante(x, y);
+
+		var coordinate = require('./coordinate');
+		var coord = new coordinate(x, y);
 		return coord;
 	}
 }

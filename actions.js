@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = class actions {
   static aim(radians) {
 

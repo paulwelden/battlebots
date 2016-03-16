@@ -11,19 +11,25 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-app.get("/", function(req, res) {
-  res.sendFile(__dirname + "/index.html");
+app.get("/", function (req, res) {
+	res.sendFile(__dirname + "/index.html");
 });
 
-app.post("/", function(req, res) {
-  //event loop
-  //loop through custom bot scripts
-  console.log(req.body);
-  var botAI = new Function('Game', req.body.botAI);
-  //botAI();
-res.send('POST request to the homepage');
-  //event loop
-  //res.sendFile(__dirname + "/upload.html");
+app.post("/", function (req, res) {
+	var botAI = new Function('Game', req.body.script);
+	var botColor = req.body.color;
+	var botName = req.body.userName;
+	var botType = req.body.type;
+
+	var newBot = game.createBot(botName, botColor, botType, botAI);
+	var checkBot = game.activeBots[botName];
+	if (!checkBot)
+		game.activeBots[botName] = newBot;
+
+	console.log(game.activeBots[botName]);
+	console.log(game.activeBots);
+	//event loop
+	//res.sendFile(__dirname + "/upload.html");
 });
 
 var game = new gamestate();
@@ -31,9 +37,9 @@ var game = new gamestate();
 var clients = {};
 io.on('connection', function (socket) {
 	clients[socket.id] = socket;
-	socket.on('newbot', function (data) {
-		game.bots.push(data);
-	});
+	//socket.on('newbot', function (data) {
+	//	game.bots.push(data);
+	//});
 });
 
 function gameEngineTick() {
