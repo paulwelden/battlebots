@@ -2,6 +2,8 @@
 var game = require('./gameState');
 var actions = require('./actions');
 var actionEval = require('./actionEval');
+var projectileEval = require('./projectileEval');
+var deepcopy = require('deepcopy');
 
 module.exports = class gameEngine{
 
@@ -15,9 +17,18 @@ module.exports = class gameEngine{
         }
 
         //do projectile moves
-        for (var projectile in game.projectiles) {
+        for (var projectileKey in game.projectiles) {
+            var projectile = game.projectiles[projectileKey];
+
+            
             if(projectileEval.eval(projectile, game)) {
-                game.projectiles.remove
+                //Remove projectile if we hit them
+                var i = game.projectiles.indexOf(projectileKey);
+                console.log(game.projectiles.length);
+                if(i != -1){
+                    game.projectiles.splice(i,1);
+                }
+                console.log(game.projectiles.length);
             }
         }
 

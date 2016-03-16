@@ -6,10 +6,15 @@ var projectile = require('./projectile');
 var constants = require('./constants');
 var collisions = require('./collisionDetection');
 var coordinate = require('./coordinate');
+var deepcopy = require('deepcopy');
+
 
 module.exports = class actionEval {
 
 	static eval(action, botToEval, gState) {
+	            
+	    var oldPos=JSON.parse(JSON.stringify(botToEval.position));
+	    
 		if (!(action instanceof actions)) {
 			throw "action is garbage";
 		}
@@ -37,7 +42,8 @@ module.exports = class actionEval {
 			
 
 			var angleTo = botToEval.angleToMove(targetCoord);
-			var oldPos=new coordinate(botToEval.position.x.toString(),botToEval.position.y.toString());
+			
+			
 			var distanceTo = botToEval.distanceTo(targetCoord);
 			var turnTime = Math.abs(angleTo) / botToEval.turnRate;
 			if ((angleTo >= 1 ||  angleTo <= -1) && distanceTo > 1 ) {
@@ -50,13 +56,17 @@ module.exports = class actionEval {
 				botToEval.heading %= 360;
 			}
 			if (distanceTo !== 0) {
-				//TODO move
 				var moveTime = 1 - turnTime;
 				if(distanceTo > botToEval.speed) {
 					distanceTo = botToEval.speed;
 				}
 				distanceTo = moveTime * distanceTo;
+				console.log('before moving');
+				console.log(botToEval.name);
+				console.log(botToEval.position);
+				console.log(distanceTo);
 				actionEval.moveForward(distanceTo, botToEval);
+				console.log(botToEval.position);
 			}
 		}
 		var botBox={
@@ -69,6 +79,7 @@ module.exports = class actionEval {
 		for(var botToCollideName in gState.activeBots){
 		    if(botToCollideName==botToEval.name)
 		        continue;
+            
 		    var botToCollide = gState.activeBots[botToCollideName];
 		    var targetBox={
 		        x:botToCollide.position.x,
@@ -77,27 +88,30 @@ module.exports = class actionEval {
 		        width:constants.BOT_SIZE()
 		    };
 		    if(collisions.eval(botBox,targetBox)){
-		        botToEval.position=oldPos;
+		        
+		        botToEval.position.x=oldPos.x;
+		        botToEval.position.y=oldPos.y;
 		    }
 		}
 
-		targetCoord = action.AimTowardsPosition
+		targetCoord = action.AimTowardsPosition;
 		if (targetCoord) {
-			var angleTo = botToEval.angletoFace(targetCoord)
+			var angleTo = botToEval.angleToFace(targetCoord);
 			if (angleTo !== 0) {
-				// TODO turn cannon
+				botToEval.facing += angleTo > 0 ? Math.min(botToEval.aimRate, angleTo) : Math.max(-botToEval.aimRate, angleTo);
 			}
 		}
+
 		if (action.Fire) {
 			if (botToEval.shotCooldown === 0) {
-				fire(botToEval, gState);
+				actionEval.fire(botToEval, gState);
 			}
 		}
 	}
 
 	static moveForward(distanceTo, botToMoveForward) {
 		//move forwards according to the bots defined movement rate
-		var radiansFromDegree = 	constants.ConvertToRadiansFromDegrees( botToMoveForward.heading);
+		var radiansFromDegree = constants.ConvertToRadiansFromDegrees(botToMoveForward.heading);
 		botToMoveForward.position.x += distanceTo * Math.cos(radiansFromDegree);
 		botToMoveForward.position.y += distanceTo * Math.sin(radiansFromDegree);
 	}
@@ -108,9 +122,12 @@ module.exports = class actionEval {
 	    botToMoveForward.position.x -= distanceTo * Math.cos(radiansFromDegree);
 	    botToMoveForward.position.y -= distanceTo * Math.sin(radiansFromDegree);
 	}
-	static fire(botToFire, gState) {
-		var bullet = new projectile(bot.facing, 20, bot.position);
+
+    static fire(botToFire, gState) {
+        //var positionCopy = deepcopy(botToFire.position);
+        var positionCopy = JSON.parse(JSON.stringify(botToFire.position));
+        var bullet = new projectile(botToFire.facing, 20, positionCopy);
 		gState.projectiles.push(bullet);
-		bot.shotCooldown = 10;
+		botToFire.shotCooldown = 10;
 	}
 }

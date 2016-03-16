@@ -33,7 +33,6 @@ app.post("/", function (req, res) {
 
 var game = new gamestate();
 game.activeBots['paul'] = game.createBot('paul', '#0000FF', '', paulBot);
-game.activeBots['ball'] = game.createBot('ball', '#0000FF', '', paulBot);
 
 var clients = {};
 io.on('connection', function (socket) {
