@@ -11,22 +11,20 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-app.get("/", function(req, res) {
-  res.sendFile(__dirname + "/index.html");
+app.get("/", function (req, res) {
+	res.sendFile(__dirname + "/index.html");
 });
 
-app.get("/upload", function(req, res) {
-  res.sendFile(__dirname + "/upload.html");
+app.get("/upload", function (req, res) {
+	res.sendFile(__dirname + "/upload.html");
 });
 
-app.post("/upload", function(req, res, next) {
-  console.log(req.body.botLogic);
-  //event loop
-  //loop through custom bot scripts
-  var result = new Function('Game', req.body.botLogic);
-  result(gameObject);
-  //event loop
-  res.sendFile(__dirname + "/upload.html");
+app.post("/upload", function (req, res, next) {
+	console.log(req.body.botLogic);
+	var result = new Function('Game', req.body.botLogic);
+	result(gameObject);
+	//event loop
+	res.sendFile(__dirname + "/upload.html");
 });
 
 var game = new gamestate();

@@ -1,9 +1,9 @@
 "use strict";
 
 class constants {
-  static BOT_SIZE() {
-	  return 30;
-  }
+	static BOT_SIZE() {
+		return 30;
+	}
 	static WORLD_WIDTH() {
 		return 800
 	}
