@@ -10,12 +10,13 @@ module.exports = class actions {
 		this.TurnAmount = null;
 	}
 
-	static MoveTowards(x, y) {
+	MoveTowards(x, y) {
+	    console.log("move to " + x + " and " + y);
 		var coordinates = new coord(x, y);
 		this.MoveTowardsPosition = coordinates;
 	}
 
-	static AimTowards(x, y) {
+	AimTowards(x, y) {
 		var coordinates = new coord(x, y);
 		this.AimTowardsPosition = coordinates;
 	}
