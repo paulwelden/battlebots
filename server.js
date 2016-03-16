@@ -10,9 +10,7 @@ app.get("/", function (req, res) {
 	res.sendFile(__dirname + "/index.html");
 });
 
-var arena = {
-	bots: []
-};
+var game = new GameState();
 
 var clients = {};
 io.on('connection', function (socket) {

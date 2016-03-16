@@ -1,7 +1,19 @@
 "use strict";
 
 class constants {
-  static var BOT_SIZE = 30;
-  static var WORLD_WIDTH = 800;
-  static var WORLD_HEIGHT = 800;
+  static BOT_SIZE() {
+	  return 30;
+  }
+	static WORLD_WIDTH() {
+		return 800
+	}
+	static WORLD_HEIGHT() {
+		return 800;
+	}
+	static PROJECTILE_WIDTH() {
+		return 5;
+	}
+	static PROJECTILE_HEIGHT() {
+		return 9;
+	}
 }
