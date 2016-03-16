@@ -24,11 +24,7 @@ module.exports = class gameEngine{
 
             var bot = game.activeBots[actionKey];
 
-
             actionEval.eval(action, game.activeBots[actionKey], game);
         }
-
-        
     }
-
 }

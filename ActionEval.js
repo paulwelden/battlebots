@@ -1,4 +1,7 @@
 'use strict';
+var actions = require('./actions');
+var bot = require('./bot');
+var gameState = require('./gameState');
 
 var Action = require('./actions');
 var Bot = require('./bot');
@@ -8,13 +11,13 @@ var Projectile = require('./Projectile');
 module.exports = class actionEval {
 
 	static eval(action, bot, gameState) {
-		if (!(action instanceof Action)) {
+		if (!(action instanceof actions)) {
 			throw "action is garbage";
 		}
-		if (!(bot instanceof Bot)) {
+		if (!(bot instanceof bot)) {
 			throw "bot is garbage";
 		}
-		if (!(gameState instanceof GameState)) {
+		if (!(gameState instanceof gameState)) {
 			throw "gameState is garbage";
 		}
 		var targetCoord = action.MoveTowardsPosition;

@@ -52,7 +52,7 @@ function haveHit(obj1, obj2)
 {
   //P1
   //determine P1 bounds
-  var obj1Max = Math.max(obj1.width, obj1.height) * 1.42
+  var obj1Max = Math.max(obj1.width, obj1.height) // * 1.42 //add back in once P2 is good
   var obj1P1 = {
     left: obj1.x - (obj1Max + obj1.width)*.5,
     top: obj1.y - (obj1Max + obj1.height)*.5
@@ -60,19 +60,13 @@ function haveHit(obj1, obj2)
   obj1P1.right = obj1P1.left + obj1Max;
   obj1P1.bottom = obj1P1.top + obj1Max;
 
-  var obj2Max = Math.max(obj2.width, obj2.height) * 1.42
+  var obj2Max = Math.max(obj2.width, obj2.height) // * 1.42 //add back in once P2 is good
   var obj2P1 = {
     left: obj2.x - (obj2Max + obj2.width)*.5,
     top: obj2.y - (obj2Max + obj2.height)*.5
   };
   obj2P1.right = obj2P1.left + obj1Max;
   obj2P1.bottom = obj2P1.top + obj1Max;
-
-  //var canvas = document.getElementById("myCanvas");
-  //var context = canvas.getContext('2d');
-  //context.font = 'italic 10pt Calibri';
-  //context.fillText(obj1P1.right + ' <-obj1.right ob2.left->' + obj2P1.left, 10, 10);
-  //context.fillText((obj1P1.right < obj2P1.left), 10, 20);
 
   //test P1
   if (obj1P1.right < obj2P1.left)
@@ -86,7 +80,6 @@ function haveHit(obj1, obj2)
 
   //P2
   //draw obj1 & obj2
-
   //save pixel data
   //draw obj2
   //compare pixels
