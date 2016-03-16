@@ -1,4 +1,5 @@
 'use strict';
+var coordinate = require('./Coordinate');
 
 module.exports = class bot {
 	constructor(name, color, startingPosition, ai) {
@@ -12,26 +13,42 @@ module.exports = class bot {
 		this.isHit = false;
 		this.hasShot = false;
 		this.ai = ai;
+		this.turnRate = 10;
+		this.aimRate = 10;
 	}
 
-	distanceTo(targetBot) {
-		if (!(targetBot instanceof bot)) {
+	distanceTo(coord) {
+		if (!(coord instanceof coordinate)) {
 			throw "Not of type Bot";
 		}
-		var dx = this.position.x - targetBot.position.x;
-		var dy = this.position.y - targetBot.position.y;
+		var dx = this.position.x - coord.x;
+		var dy = this.position.y - coord.y;
 		var dist = Math.sqrt((dx * dx) + (dy * dy));
 		return Math.abs(dist);
 	}
 
-	angleTo(targetBot) {
-		if (!(targetBot instanceof bot)) {
+	angleToFace(coordinate) {
+		var angle = this.angleTo(coordinate, this.facing);
+		return angle;
+	}
+
+	angleToMove(coordinate) {
+		var angle = this.angleTo(coordinate, this.heading);
+		return angle;
+	}
+
+	angleTo(coord, currentDirection) {
+		if (!(coord instanceof coordinate)) {
 			throw "Not of type Bot";
 		}
-		var dx = this.position.x - targetBot.position.x;
-		var dy = this.position.y - targetBot.position.y;
-		var angleDeg = Math.atan2(dy, dx) * (180 / Math.PI);
-		var angleDiff = angleDeg - this.facing;
+		var dx = this.position.x - coord.x;
+		var dy = this.position.y - coord.y;
+
+		var angleRadians = Math.atan2(dy, dx);
+		var angleDiff = -(angleRadians - currentDirection);
+
 		return angleDiff;
 	}
+
+
 }
