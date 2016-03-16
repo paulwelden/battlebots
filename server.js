@@ -22,19 +22,17 @@ app.post("/", function (req, res) {
 	var botName = req.body.userName;
 	var botType = req.body.type;
 
-	var newBot = game.createBot(botName, botColor, botType, botAI);
 	if (game.activeBots[botName] === undefined) {
-		game.activeBots[botName] = newBot;
+		game.activeBots[botName] = game.createBot(botName, botColor, botType, botAI);
 	}
 });
-
-var game = new gamestate();
 
 var clients = {};
 io.on('connection', function (socket) {
 	clients[socket.id] = socket;
 });
 
+var game = new gamestate();
 function gameEngineTick() {
 	var actionsToDo = [];
 
