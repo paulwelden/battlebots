@@ -16,7 +16,9 @@ module.exports = class gameEngine{
 
         //do projectile moves
         for (var projectile in game.projectiles) {
-            projectileEval.eval(projectile, game);
+            if(projectileEval.eval(projectile, game)) {
+                game.projectiles.remove
+            }
         }
 
         for (var actionKey in actionsToDo) {

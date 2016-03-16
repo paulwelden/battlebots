@@ -77,7 +77,7 @@ module.exports = class actionEval {
 
 	static fire(botToFire, gState) {
 		var bullet = new projectile(bot.facing, 20, bot.position);
-		//gState.P
+		gState.projectile.push(bullet);
 		bot.shotCooldown = 10;
 	}
 }
