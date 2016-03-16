@@ -11,7 +11,7 @@ $(document).ready(function () {
 		   data: $("#userForm").serialize(), // serializes the form's elements.
 		   success: function(data)
 		   {
-		       $("#userForm").hide();
+		       $("#addNewBot").hide();
 		   }
 		 });
 
