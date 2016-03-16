@@ -1,61 +1,48 @@
 var assert = require('assert');
 var should = require('should');
-var ActionEval = require('../actionEval');
+var actionEval = require('../actionEval');
 var actions = require('../actions');
 var gameState = require('../gameState');
 var bot = require('../bot');
 
-describe('ActionEval', function () {
+describe('actionEvalTests', function () {
 	describe('#eval()', function () {
 		it('should execute the eval function', function () {
-			var ae = new ActionEval();
 			var action = new actions();
-			var bot = new bot();
+			var myBot = new bot();
 			var gs = new gameState();
 
-			ae.eval(action, bot, gs);
-		});
-	});
-
-	describe('#needsToChangeHeading()', function () {
-		it('should execute the needsToChangeHeading function', function () {
-			var ae = new ActionEval();
-			ae.needsToChangeHeading();
+			actionEval.eval(action, myBot, gs);
 		});
 	});
 
 	describe('#changeHeading()', function () {
 		it('should execute the changeHeading function', function () {
-			var ae = new ActionEval();
-			ae.changeHeading();
+			actionEval.changeHeading();
 		});
 	});
 
 	describe('#changeAim()', function () {
 		it('should execute the changeAim function', function () {
-			var ae = new ActionEval();
-			ae.changeAim();
+			actionEval.changeAim();
 		});
 	});
 
 	describe('#moveForward()', function () {
 		it('should execute the moveForward function', function () {
-			var ae = new ActionEval();
-			ae.moveForward();
+			actionEval.moveForward();
 		});
 	});
 
 	describe('#moveBackward()', function () {
 		it('should execute the moveBackward function', function () {
-			var ae = new ActionEval();
-			ae.moveBackward();
+			actionEval.moveBackward();
 		});
 	});
 
 	describe('#fire()', function () {
 		it('should execute the fire function', function () {
-			var ae = new ActionEval();
-			ae.fire();
+			actionEval.fire();
 		});
 	});
 });
