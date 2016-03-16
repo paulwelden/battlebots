@@ -1,7 +1,6 @@
 // JavaScript source code
-"use strict";
 
-module.exports = class Bot {
+module.exports = class bot {
 	constructor(name, color, startingPosition, ai) {
 		this.name = name;
 		this.position = startingPosition;
@@ -14,22 +13,23 @@ module.exports = class Bot {
 		this.hasShot = false;
 		this.ai = ai;
 	}
-	distanceTo(bot) {
-		if(!(bot instanceof Bot)) {
+
+	distanceTo(targetBot) {
+		if (!(targetBot instanceof bot)) {
 			throw "Not of type Bot";
 		}
-		var dx = this.position.x - Bot.position.x;
-		var dy = this.position.y - Bot.position.y;
+		var dx = this.position.x - targetBot.position.x;
+		var dy = this.position.y - targetBot.position.y;
 		var dist = Math.sqrt((dx * dx) + (dy * dy));
 		return Math.abs(dist);
 	}
 
-	angleTo(bot) {
-		if(!(bot instanceof Bot)) {
+	angleTo(targetBot) {
+		if (!(targetBot instanceof Bot)) {
 			throw "Not of type Bot";
 		}
-		var dx = this.position.x - Bot.position.x;
-		var dy = this.position.y - Bot.position.y;
+		var dx = this.position.x - targetBot.position.x;
+		var dy = this.position.y - targetBot.position.y;
 		var angleRadians = Math.atan2(dy, dx);
 		var angleDiff = angleRadians - this.facing;
 		return angleDiff;

@@ -1,6 +1,4 @@
-"use strict";
-
-module.exports = class Coordinate {
+module.exports = class coordinate {
   constructor(x, y) {
     this.x = x;
     this.y = y;
