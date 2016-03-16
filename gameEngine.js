@@ -16,22 +16,18 @@ module.exports = class gameEngine{
             bot.ai(gameCopy, action);
             actionsToDo[bot.name] = action;
         }
-
+        var existingProjectiles = [];
         //do projectile moves
         for (var projectileKey in game.projectiles) {
             var projectile = game.projectiles[projectileKey];
 
             
-            if(projectileEval.eval(projectile, game)) {
-                //Remove projectile if we hit them
-                var i = game.projectiles.indexOf(projectileKey);
-                console.log(game.projectiles.length);
-                if(i != -1){
-                    game.projectiles.splice(i,1);
-                }
-                console.log(game.projectiles.length);
+            if(!projectileEval.eval(projectile, game)) {
+                //We can keep the projectile
+                existingProjectiles.push(projectile);
             }
         }
+        game.projectiles = existingProjectiles;
 
         for (var actionKey in actionsToDo) {
             var action = actionsToDo[actionKey];
