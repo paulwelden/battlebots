@@ -7,36 +7,36 @@ var deepcopy = require('deepcopy');
 
 module.exports = class gameEngine{
 
-	static tick(game) {
-		var actionsToDo = [];
-		for (var botName in game.activeBots) {
-			var bot = game.activeBots[botName];
-			var action = new actions();
-			var gameCopy = deepcopy(game);
-			bot.ai(gameCopy, action);
-			actionsToDo[bot.name] = action;
+    static tick(game) {
+        var actionsToDo = [];
+        for (var botName in game.activeBots) {
+            var bot = game.activeBots[botName];
+            var action = new actions();
+            var gameCopy = deepcopy(game);
+            bot.ai(gameCopy, action);
+            actionsToDo[bot.name] = action;
 			if (bot.shotCooldown  > 0) {
 				bot.shotCooldown--;
-			}
+        }
 		}
 		var existingProjectiles = [];
-		//do projectile moves
-		for (var projectileKey in game.projectiles) {
-			var projectile = game.projectiles[projectileKey];
+        //do projectile moves
+        for (var projectileKey in game.projectiles) {
+            var projectile = game.projectiles[projectileKey];
 
 			if(!projectileEval.eval(projectile, game)) {
 				//We can keep the projectile
 				existingProjectiles.push(projectile);
-			}
-		}
-		game.projectiles = existingProjectiles;
+            }
+        }
+        game.projectiles = existingProjectiles;
 
-		for (var actionKey in actionsToDo) {
-			var action = actionsToDo[actionKey];
+        for (var actionKey in actionsToDo) {
+            var action = actionsToDo[actionKey];
 
-			var bot = game.activeBots[actionKey];
+            var bot = game.activeBots[actionKey];
 
-			actionEval.eval(action, game.activeBots[actionKey], game);
-		}
-	}
+            actionEval.eval(action, game.activeBots[actionKey], game);
+        }
+    }
 }
