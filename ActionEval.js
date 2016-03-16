@@ -1,7 +1,4 @@
 'use strict';
-var Action = require('./actions');
-var Bot = require('./bot');
-var GameState = require('./gameState');
 
 module.exports = class actionEval {
 

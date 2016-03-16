@@ -7,6 +7,7 @@ var path = require('path');
 var gamestate = require('./gameState');
 var actionEval = require('./actionEval');
 var projectileEval = require('./projectileEval');
+var gameEngine = require('./gameEngine');
 
 http.listen(3000);
 app.use(express.static(path.join(__dirname, 'public')));
@@ -25,6 +26,8 @@ app.post("/", function (req, res) {
 	if (game.activeBots[botName] === undefined) {
 		game.activeBots[botName] = game.createBot(botName, botColor, botType, botAI);
 	}
+	io.emit('scoreboard', game.activeBots);
+	res.send('received');
 });
 
 var clients = {};
@@ -34,24 +37,7 @@ io.on('connection', function (socket) {
 
 var game = new gamestate();
 function gameEngineTick() {
-	var actionsToDo = [];
-
-	for (var bot in game.bots) {
-		var action = new actions();
-		bot.ai(game, action);
-		actionsToDo[bot.botName] = action;
-		console.log(action);
-	}
-
-	//do projectile moves
-	for (var projectile in game.projectiles) {
-		projectileEval.eval(projectile, game);
-	}
-
-	for (var action in actionsToDo) {
-		actionEval.eval(action, game.activeBots[botName], game);
-		console.log("evaluated action");
-	}
+    gameEngine.tick(game);
 
 	for (var c in clients) {
 		clients[c].emit('tick', game);
