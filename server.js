@@ -28,6 +28,8 @@ app.post("/", function (req, res) {
 
 	console.log(game.activeBots[botName]);
 	console.log(game.activeBots);
+	io.emit('scoreboard', game.activeBots);
+	res.send('received');
 	//event loop
 	//res.sendFile(__dirname + "/upload.html");
 });
