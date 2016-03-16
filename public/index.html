@@ -6,17 +6,27 @@
     <title>battlebots</title>
 </head>
 <body style="margin: 0px;">
-	<canvas id="canvas" width="800" height="800"></canvas>
+	<canvas id="canvas" width="800" height="800" style="float:left;"></canvas>
+	<div>Scoreboard:</div>
+	<div style="float:right;">
+		<h2>Add a new BattleBot!</h2>
+		<form action="" method="post" name="userForm" id="userForm">
+			<label for="userName">BattleBot Name:</label>
+			<input type="text" name="userName"></input> <br />
+			<label for="color">Color (just kidding):</label>
+			<input type="color" name="color"></input><br />
+			<label for="type">BattleBot Type:</label>
+			<input type="text" name="type"></input><br />
+			<label>Your AI:</label><br /><br />
+			<label>var ai = function(game, moves){</label><br />
+			<textarea rows="10" cols="50" name="script"></textarea><br />
+			<label>}</label><br /><br />
+			<button type="submit">Play!</button>
+		</form>
+	</div>
 
 
-
-  <form action="" method="post" name="userForm" id="userForm">
-    <input type="text" name="userName"></input>
-    <input type="text" name="color"></input>
-    <input type="text" name="type"></input>
-    <textarea rows="10" cols="50" name="bot1"></textarea>
-    <button type="submit">Click me</button>
-  </form>
+  
 
 
 
