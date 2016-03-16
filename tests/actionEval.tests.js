@@ -30,7 +30,9 @@ describe('actionEvalTests', function () {
 
 	describe('#moveForward()', function () {
 		it('should execute the moveForward function', function () {
-			actionEval.moveForward();
+			var gs = new gameState();
+			var myBot = gs.createBot('Mr Test', 'red', 'type', function () { console.log('AI'); })
+			actionEval.moveForward(10, myBot);
 		});
 	});
 
