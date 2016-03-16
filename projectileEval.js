@@ -23,10 +23,11 @@ module.exports = class projectileEval {
 			var botToEval = gameStateToEval.activeBots[botKey];
 
 			var botObj = {
-				width: constants.BOT_SIZE(),
-				height: constants.BOT_SIZE(),
-				x: botToEval.position.x,
-				y: botToEval.position.y
+				width : constants.BOT_SIZE(),
+				height : constants.BOT_SIZE(),
+				x : botToEval.position.x,
+				y : botToEval.position.y
+
 			};
 
 			if (collisionDetection.eval(projectileObj, botObj)) {
