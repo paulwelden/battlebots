@@ -1,6 +1,6 @@
 "use strict";
 
-class constants {
+module.exports = class constants {
   static BOT_SIZE() {
 	  return 30;
   }

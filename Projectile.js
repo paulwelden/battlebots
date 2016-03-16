@@ -1,7 +1,7 @@
 // JavaScript source code
 "use strict";
 
-class Projectile {
+module.exports = class Projectile {
 	constructor(heading, speed, position) {
 		
 	}

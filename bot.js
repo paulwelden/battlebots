@@ -1,7 +1,7 @@
 // JavaScript source code
 "use strict";
 
-class Bot {
+module.exports = class Bot {
 	constructor(name, color, startingPosition, ai) {
 		this.name = name;
 		this.position = startingPosition;
