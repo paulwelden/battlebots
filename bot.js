@@ -38,8 +38,6 @@ module.exports = class bot {
 	}
 
 	angleTo(coord, currentDirection) {
-	    console.log(coord);
-	    console.log(coordinate);
 		if (!(coord instanceof coordinate)) {
 			throw "Not of type coordinate";
 		}
