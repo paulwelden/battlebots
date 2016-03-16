@@ -2,8 +2,7 @@
 "use strict";
 
 class Bot {
-	constructor(name, type, startingPosition) {
-		
+	constructor(name, type, startingPosition) {		
 		this.name = name;
 		this.type = type;
 		this.position = startingPosition;
