@@ -34,7 +34,6 @@ module.exports = class actionEval {
 				botToEval.heading %= 360;
 			}
 			if (distanceTo !== 0) {
-				//TODO move
 				var moveTime = 1 - turnTime;
 				if(distanceTo > botToEval.speed) {
 					distanceTo = botToEval.speed;
@@ -48,9 +47,10 @@ module.exports = class actionEval {
 		if (targetCoord) {
 			var angleTo = botToEval.angletoFace(targetCoord)
 			if (angleTo !== 0) {
-				// TODO turn cannon
+				botToEval.facing += angleTo > 0 ? Math.min(botToEval.aimRate, angleTo) : Math.max(-botToEval.aimRate, angleTo);
 			}
 		}
+
 		if (action.Fire) {
 			if (botToEval.shotCooldown === 0) {
 				fire(botToEval, gState);
@@ -60,7 +60,7 @@ module.exports = class actionEval {
 
 	static moveForward(distanceTo, botToMoveForward) {
 		//move forwards according to the bots defined movement rate
-		var radiansFromDegree = 	constants.ConvertToRadiansFromDegrees( botToMoveForward.heading);
+		var radiansFromDegree = constants.ConvertToRadiansFromDegrees(botToMoveForward.heading);
 		botToMoveForward.position.x += distanceTo * Math.cos(radiansFromDegree);
 		botToMoveForward.position.y += distanceTo * Math.sin(radiansFromDegree);
 	}
