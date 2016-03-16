@@ -20,7 +20,7 @@ class actions {
   static moveBackward(int) {
 
   }
-  
+
   static fire() {
 
   }
