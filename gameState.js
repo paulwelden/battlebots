@@ -2,7 +2,7 @@
 
 module.exports = class gameState {
 	constructor() {
-		this.activeBots = [];
+		this.activeBots = {};
 		this.projectiles = [];
 	}
 
