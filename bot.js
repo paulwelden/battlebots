@@ -51,6 +51,4 @@ module.exports = class bot {
 
 		return angleDiff;
 	}
-
-
 }
