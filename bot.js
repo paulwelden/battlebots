@@ -1,4 +1,5 @@
 'use strict';
+var coordinate = require('./Coordinate');
 
 module.exports = class bot {
 	constructor(name, color, startingPosition, ai) {
@@ -14,26 +15,28 @@ module.exports = class bot {
 		this.ai = ai;
 	}
 
-	distanceTo(targetBot) {
-		if (!(targetBot instanceof bot)) {
+	distanceTo(coord) {
+		if (!(coord instanceof coordinate)) {
 			throw "Not of type Bot";
 		}
-		var dx = this.position.x - targetBot.position.x;
-		var dy = this.position.y - targetBot.position.y;
+		var dx = this.position.x - coord.x;
+		var dy = this.position.y - coord.y;
 		var dist = Math.sqrt((dx * dx) + (dy * dy));
 		return Math.abs(dist);
 	}
 
-	angleTo(targetBot) {
-		if (!(targetBot instanceof bot)) {
+	angleTo(coordinate) {
+		if (!(coord instanceof coordinate)) {
 			throw "Not of type Bot";
 		}
-		var dx = this.position.x - targetBot.position.x;
-		var dy = this.position.y - targetBot.position.y;
+		var dx = this.position.x - coord.x;
+		var dy = this.position.y - coord.y;
 
 		var angleRadians = Math.atan2(dy, dx);
 		var angleDiff = -(angleRadians - this.facing);
 
 		return angleDiff;
 	}
+
+
 }

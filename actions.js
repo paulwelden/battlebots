@@ -3,9 +3,11 @@ var coord = required('./coordinate');
 
 module.exports = class actions {
 	constructor() {
-		this.fire = false;
+		this.Fire = false;
 		this.MoveTowardsPosition = null;
 		this.AimTowardsPosition = null;
+		this.MoveAmount = null;
+		this.TurnAmount = null;
 	}
 
 	static MoveTowards(x, y) {

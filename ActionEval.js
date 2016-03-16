@@ -1,9 +1,25 @@
-// 'use strict'
+'use strict';
+var Action = required('./actions');
 
-module.exports = class actionEval{
+module.exports = class actionEval {
 
 	static eval(action, bot, gameState) {
-		//determine what actions the bot wants to make
+		if (!(action instanceof Action)) {
+			throw "action is garbage";
+		}
+		if (action.MoveTowardsPosition) {
+			//TODO need to do hit detection bot -> bot and bot -> wall
+		}
+		if (action.AimTowardsPosition) {
+			
+		}
+		if (action.Fire) {
+			
+		}
+	}
+
+	static needsToChangeHeading(moveToCoordinate, bot) {
+		
 	}
 
 	static changeHeading(degrees, bot, gameState) {
