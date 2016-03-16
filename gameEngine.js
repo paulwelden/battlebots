@@ -3,6 +3,7 @@ var game = require('./gameState');
 var actions = require('./actions');
 var actionEval = require('./actionEval');
 var projectileEval = require('./projectileEval');
+var deepcopy = require('deepcopy');
 
 module.exports = class gameEngine{
 
@@ -11,19 +12,12 @@ module.exports = class gameEngine{
         for (var botName in game.activeBots) {
             var bot = game.activeBots[botName];
             var action = new actions();
-            bot.ai(game, action);
+            var gameCopy = deepcopy(game);
+            bot.ai(gameCopy, action);
             actionsToDo[bot.name] = action;
         }
 
         //do projectile moves
-        // Start with an initial array
-        var array = ["a", "b", "c"];
-
-        // Find and remove item from an array
-        var i = array.indexOf("b");
-        if(i != -1) {
-            array.splice(i, 1);
-        }
         for (var projectileKey in game.projectiles) {
             var projectile = game.projectiles[projectileKey];
 
@@ -31,9 +25,11 @@ module.exports = class gameEngine{
             if(projectileEval.eval(projectile, game)) {
                 //Remove projectile if we hit them
                 var i = game.projectiles.indexOf(projectileKey);
+                console.log(game.projectiles.length);
                 if(i != -1){
                     game.projectiles.splice(i,1);
                 }
+                console.log(game.projectiles.length);
             }
         }
 
