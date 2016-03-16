@@ -67,7 +67,7 @@ module.exports = class actionEval {
 
 		if (action.Fire) {
 			if (botToEval.shotCooldown === 0) {
-				fire(botToEval, gState);
+				actionEval.fire(botToEval, gState);
 			}
 		}
 	}
@@ -79,7 +79,8 @@ module.exports = class actionEval {
 		botToMoveForward.position.y += distanceTo * Math.sin(radiansFromDegree);
 	}
 
-	static fire(botToFire, gState) {
+    static fire(botToFire, gState) {
+	    console.log('fired');
 		var bullet = new projectile(bot.facing, 20, bot.position);
 		gState.projectiles.push(bullet);
 		bot.shotCooldown = 10;
