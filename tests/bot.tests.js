@@ -1,11 +1,12 @@
 var assert = require('assert');
 var should = require('should');
 var bot = require('../bot');
+var coordinate = require('../coordinate');
 
 describe('bot', function () {
 	describe('#ctor()', function () {
 		it('should create a bot when calling constructor', function () {
-			var b = new bot('Mr Test', 'red', { x: 100, y: 250 }, function () { console.log('AI'); });
+			var b = new bot('Mr Test', 'red', new coordinate(100, 250), function () { console.log('AI'); });
 			should.exist(b);
 			b.name.should.be.eql('Mr Test');
 			b.color.should.be.eql('red');
@@ -17,9 +18,8 @@ describe('bot', function () {
 
 	describe('#distainceTo(bot)', function () {
 		it('should determine distance between bots', function () {
-			var bot1 = new bot('bot1', 'red', { x: 100, y: 250 }, function () { });
-			var bot2 = new bot('bot2', 'blue', { x: 200, y: 250 }, function () { });
-			var distance = bot1.distanceTo(bot2);
+			var bot1 = new bot('bot1', 'red', new coordinate(100,250), function () { });
+			var distance = bot1.distanceTo(new coordinate(100,350));
 
 			distance.should.be.eql(100);
 		});
@@ -27,9 +27,8 @@ describe('bot', function () {
 
 	describe('#angleTo(bot)', function () {
 		it('should determine angle between bots', function () {
-			var bot1 = new bot('bot1', 'red', { x: 100, y: 200 }, function () { });
-			var bot2 = new bot('bot2', 'blue', { x: 200, y: 100 }, function () { });
-			var angle = bot1.angleTo(bot2);
+			var bot1 = new bot('bot1', 'red', new coordinate(100, 250), function () { });
+			var angle = bot1.angleTo(new coordinate(95,350));
 
 			angle.should.be.eql(-45);
 		});
