@@ -4,7 +4,7 @@ var bot = require('./bot');
 var gameState = require('./gameState');
 var projectile = require('./projectile');
 var constants = require('./constants');
-var collisions = required('./collisionDetection');
+var collisions = require('./collisionDetection');
 
 module.exports = class actionEval {
 
