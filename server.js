@@ -5,6 +5,8 @@ var io = require('socket.io')(http);
 var bodyParser = require('body-parser');
 var path = require('path');
 var gamestate = require('./gameState');
+var actionEval = require('./actionEval');
+var projectileEval = require('./projectileEval');
 
 http.listen(3000);
 app.use(express.static(path.join(__dirname, 'public')));
@@ -34,8 +36,23 @@ io.on('connection', function (socket) {
 });
 
 function gameEngineTick() {
+	var actionsToDo = [];
+
 	for (var bot in game.bots) {
-		eval(bot.ai);
+		var action = new actions();
+		bot.ai(game, action);
+		actionsToDo[bot.botName] = action;
+		console.log(action);
+	}
+
+	//do projectile moves
+	for (var projectile in game.projectiles) {
+		projectileEval.eval(projectile, game);
+	}
+
+	for (var action in actionsToDo) {
+		actionEval.eval(action, game.activeBots[botName], game);
+		console.log("evaluated action");
 	}
 
 	for (var c in clients) {
