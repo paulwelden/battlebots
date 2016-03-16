@@ -49,6 +49,4 @@ function gameEngineTick() {
 	}
 }
 
-
-
-setInterval(gameEngineTick, 100);
+setInterval(gameEngineTick, 50);
