@@ -27,6 +27,8 @@ app.post("/", function (req, res) {
 	if (game.activeBots[botName] === undefined) {
 		game.activeBots[botName] = newBot;
 	}
+	io.emit('scoreboard', game.activeBots);
+	res.send('received');
 });
 
 var game = new gamestate();
