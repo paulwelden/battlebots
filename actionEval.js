@@ -24,7 +24,7 @@ module.exports = class actionEval {
 
 			var distanceTo = botToEval.distanceTo(targetCoord);
 			var turnTime = Math.abs(angleTo) / botToEval.turnRate;
-			if (angleTo !== 0) {
+			if ((angleTo >= 1 ||  angleTo <= -1) && distanceTo > 1 ) {
 				// TODO collision detection
 				if(turnTime >= 1) {
 					distanceTo = 0;
@@ -58,29 +58,16 @@ module.exports = class actionEval {
 		}
 	}
 
-	static changeHeading(degrees, botToChangeHeading, gState) {
-		//change heading according to the bots defined heading rate
-
-	}
-
-	static changeAim(degress, botToChangeAim, gState) {
-		//change facing according to bots defined facing rate
-	}
-
 	static moveForward(distanceTo, botToMoveForward) {
 		//move forwards according to the bots defined movement rate
 		var radiansFromDegree = 	constants.ConvertToRadiansFromDegrees( botToMoveForward.heading);
 		botToMoveForward.position.x += distanceTo * Math.cos(radiansFromDegree);
-		botToMoveForward.position.y += distanceTo * Math.sin(radiansFromDegree);		
-	}
-
-	static moveBackward(int, botToMoveBackward, gState) {
-		//move backwards according to the bots defined movement rate
+		botToMoveForward.position.y += distanceTo * Math.sin(radiansFromDegree);
 	}
 
 	static fire(botToFire, gState) {
 		var bullet = new projectile(bot.facing, 20, bot.position);
-		//gState.P
+
 		bot.shotCooldown = 10;
 	}
 }
