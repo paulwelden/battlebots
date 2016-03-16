@@ -19,6 +19,7 @@ module.exports = class gameEngine{
         }
 		}
 		var existingProjectiles = [];
+
         //do projectile moves
         for (var projectileKey in game.projectiles) {
             var projectile = game.projectiles[projectileKey];
@@ -26,6 +27,7 @@ module.exports = class gameEngine{
 			if(!projectileEval.eval(projectile, game)) {
 				//We can keep the projectile
 				existingProjectiles.push(projectile);
+
             }
         }
         game.projectiles = existingProjectiles;
