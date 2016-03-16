@@ -1,12 +1,9 @@
 'use strict';
-<<<<<<< Updated upstream
-=======
+
 var Action = require('./actions');
 var Bot = require('./bot');
 var GameState = require('./gameState');
 var Projectile = require('./Projectile');
-
->>>>>>> Stashed changes
 
 module.exports = class actionEval {
 
