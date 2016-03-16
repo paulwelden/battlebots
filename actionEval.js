@@ -2,23 +2,19 @@
 var actions = require('./actions');
 var bot = require('./bot');
 var gameState = require('./gameState');
-
-var Action = require('./actions');
-var Bot = require('./bot');
-var GameState = require('./gameState');
-var Projectile = require('./Projectile');
+var projectile = require('./projectile');
 
 module.exports = class actionEval {
 
-	static eval(action, botToEval, gameState) {
+	static eval(action, botToEval, gState) {
 		if (!(action instanceof actions)) {
 			throw "action is garbage";
 		}
 		if (!(botToEval instanceof bot)) {
 			throw "botToEval is garbage";
 		}
-		if (!(gameState instanceof gameState)) {
-			throw "gameState is garbage";
+		if (!(gState instanceof gameState)) {
+			throw "gState is garbage";
 		}
 		var targetCoord = action.MoveTowardsPosition;
 		if (targetCoord) {
@@ -56,17 +52,17 @@ module.exports = class actionEval {
 		}
 		if (action.Fire) {
 			if (botToEval.shotCooldown === 0) {
-				fire(botToEval, gameState);
+				fire(botToEval, gState);
 			}
 		}
 	}
 
-	static changeHeading(degrees, botToChangeHeading, gameState) {
+	static changeHeading(degrees, botToChangeHeading, gState) {
 		//change heading according to the bots defined heading rate
 
 	}
 
-	static changeAim(degress, botToChangeAim, gameState) {
+	static changeAim(degress, botToChangeAim, gState) {
 		//change facing according to bots defined facing rate
 	}
 
@@ -75,13 +71,13 @@ module.exports = class actionEval {
 
 	}
 
-	static moveBackward(int, botToMoveBackward, gameState) {
+	static moveBackward(int, botToMoveBackward, gState) {
 		//move backwards according to the bots defined movement rate
 	}
 
-	static fire(botToFire, gameState) {
-		var bullet = new Projectile(bot.facing, 20, bot.position);
-		gameState.P
+	static fire(botToFire, gState) {
+		var bullet = new projectile(bot.facing, 20, bot.position);
+		//gState.P
 		bot.shotCooldown = 10;
 	}
 }
