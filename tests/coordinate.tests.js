@@ -1,11 +1,11 @@
 var assert = require('assert');
 var should = require('should');
-var Coordinates = require('../coordinate');
+var coordinates = require('../coordinate');
 
-describe('Coordinates', function () {
+describe('coordinate', function () {
 	describe('#ctor()', function () {
 		it('should execute the constructor', function () {
-			var c = new Coordinates();
+			var c = new coordinates();
 		});
 	});
 });
