@@ -12,7 +12,8 @@ module.exports = class gameEngine {
 		for (var botName in game.activeBots) {
 			var bot = game.activeBots[botName];
 			var action = new actions();
-			bot.ai(clone(game), action);
+			bot.ai(bot, clone(game), action);
+
 			actionsToDo[bot.name] = action;
 			if (bot.shotCooldown > 0) {
 				bot.shotCooldown--;
@@ -23,15 +24,12 @@ module.exports = class gameEngine {
 		//do projectile moves
 		for (var projectileKey in game.projectiles) {
 			var projectile = game.projectiles[projectileKey];
-
 			if (!projectileEval.eval(projectile, game)) {
 				//We can keep the projectile
 				existingProjectiles.push(projectile);
-
 			}
 		}
 		game.projectiles = existingProjectiles;
-
 		for (var actionKey in actionsToDo) {
 			var action = actionsToDo[actionKey];
 
@@ -46,6 +44,5 @@ module.exports = class gameEngine {
 		}
 
 	}
-
 
 }

@@ -16,6 +16,7 @@ module.exports = class bot {
 		this.turnRate = 10;
 		this.aimRate = 10;
 		this.speed = 10;
+		this.config = {};
 	}
 
 	distanceTo(coord) {

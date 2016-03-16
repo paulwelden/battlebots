@@ -20,8 +20,8 @@ app.get("/", function(req, res) {
 	res.sendFile(__dirname + "/index.html");
 });
 
-app.post("/", function(req, res) {
-	var botAI = new Function('game', 'moves', req.body.script);
+app.post("/", function (req, res) {
+	var botAI = new Function('me', 'game', 'moves', req.body.script);
 	var botColor = req.body.color;
 	var botName = req.body.userName;
 	var botType = req.body.type;
