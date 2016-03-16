@@ -16,8 +16,8 @@ describe('bot', function () {
 		});
 	});
 
-	describe('#distainceTo(bot)', function () {
-		it('should determine distance between bots', function () {
+	describe('#distanceTo(coord)', function () {
+		it('should determine distance to coordinates', function () {
 			var bot1 = new bot('bot1', 'red', new coordinate(100,250), function () { });
 			var distance = bot1.distanceTo(new coordinate(100,350));
 
@@ -25,12 +25,21 @@ describe('bot', function () {
 		});
 	});
 
-	describe('#angleTo(bot)', function () {
-		it('should determine angle between bots', function () {
+	describe('#angleToFace(coord)', function () {
+		it('should determine angle between current facing direction and coordinates passed', function () {
 			var bot1 = new bot('bot1', 'red', new coordinate(100, 250), function () { });
-			var angle = bot1.angleTo(new coordinate(95,350));
+			var angle = bot1.angleToFace(new coordinate(95,250));
 
-			angle.should.be.eql(-45);
+			angle.should.be.eql(180);
+		});
+	});
+
+	describe('#angleToMove(coord)', function () {
+		it('should determine angle between current moving direction and coordinates passed', function () {
+			var bot1 = new bot('bot1', 'red', new coordinate(100, 250), function () { });
+			var angle = bot1.angleToMove(new coordinate(100,350));
+
+			angle.should.be.eql(90);
 		});
 	});
 });
