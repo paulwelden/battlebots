@@ -13,6 +13,8 @@ module.exports = class bot {
 		this.isHit = false;
 		this.hasShot = false;
 		this.ai = ai;
+		this.turnRate = 10;
+		this.aimRate = 10;
 	}
 
 	distanceTo(coord) {
@@ -25,7 +27,17 @@ module.exports = class bot {
 		return Math.abs(dist);
 	}
 
-	angleTo(coordinate) {
+	angleToFace(coordinate) {
+		var angle = this.angleTo(coordinate, this.facing);
+		return angle;
+	}
+
+	angleToMove(coordinate) {
+		var angle = this.angleTo(coordinate, this.heading);
+		return angle;
+	}
+
+	angleTo(coord, currentDirection) {
 		if (!(coord instanceof coordinate)) {
 			throw "Not of type Bot";
 		}
@@ -33,7 +45,7 @@ module.exports = class bot {
 		var dy = this.position.y - coord.y;
 
 		var angleRadians = Math.atan2(dy, dx);
-		var angleDiff = -(angleRadians - this.facing);
+		var angleDiff = -(angleRadians - currentDirection);
 
 		return angleDiff;
 	}

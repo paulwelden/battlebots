@@ -1,5 +1,7 @@
 'use strict';
-var Action = required('./actions');
+var Action = require('./actions');
+var Bot = require('./bot');
+var GameState = require('./gameState');
 
 module.exports = class actionEval {
 
@@ -7,8 +9,23 @@ module.exports = class actionEval {
 		if (!(action instanceof Action)) {
 			throw "action is garbage";
 		}
-		if (action.MoveTowardsPosition) {
+		if (!(bot instanceof Bot)) {
+			throw "bot is garbage";
+		}
+		if (!(gameState instanceof GameState)) {
+			throw "gameState is garbage";
+		}
+		var targetCoord = action.MoveTowardsPosition;
+		if (targetCoord) {
 			//TODO need to do hit detection bot -> bot and bot -> wall
+			var angleTo = bot.angleTo(targetCoord);
+			if (angleTo !== 0) {
+				//TODO turn
+			}
+			var distanceTo = bot.distanceTo(targetCoord);
+			if (distanceTo !== 0) {
+				//TODO move
+			}
 		}
 		if (action.AimTowardsPosition) {
 			
