@@ -16,18 +16,6 @@ describe('actionEvalTests', function () {
 		});
 	});
 
-	describe('#changeHeading()', function () {
-		it('should execute the changeHeading function', function () {
-			actionEval.changeHeading();
-		});
-	});
-
-	describe('#changeAim()', function () {
-		it('should execute the changeAim function', function () {
-			actionEval.changeAim();
-		});
-	});
-
 	describe('#moveForward()', function () {
 		it('should execute the moveForward function', function () {
 			var gs = new gameState();
@@ -36,15 +24,12 @@ describe('actionEvalTests', function () {
 		});
 	});
 
-	describe('#moveBackward()', function () {
-		it('should execute the moveBackward function', function () {
-			actionEval.moveBackward();
-		});
-	});
-
-	describe('#fire()', function () {
+	describe('#fire(botToFire, gState)', function () {
 		it('should execute the fire function', function () {
-			actionEval.fire();
+			var gs = new gameState();
+			var myBot = gs.createBot('Mr Test', 'red', 'type', function () { console.log('AI'); })
+
+			actionEval.fire(myBot, gs);
 		});
 	});
 });

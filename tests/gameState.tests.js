@@ -15,15 +15,15 @@ describe('gameState', function () {
 	describe('#createBot()', function () {
 		it('should create a bot object when calling createBot', function () {
 			var gs = new gameState();
-			var bot = gs.createBot('Mr Test', 'red', 'type', function () { console.log('AI'); })
-			should.exist(bot);
-			bot.position.x.should.be.above(0);
-			bot.position.x.should.be.below(800);
-			bot.position.y.should.be.above(0);
-			bot.position.y.should.be.below(800);
-			bot.name.should.be.eql('Mr Test');
-			bot.color.should.be.eql('red');
-			should.exist(bot.ai);
+			var myBot = gs.createBot('Mr Test', 'red', 'type', function () { console.log('AI'); })
+			should.exist(myBot);
+			myBot.position.x.should.be.above(0);
+			myBot.position.x.should.be.below(800);
+			myBot.position.y.should.be.above(0);
+			myBot.position.y.should.be.below(800);
+			myBot.name.should.be.eql('Mr Test');
+			myBot.color.should.be.eql('red');
+			should.exist(myBot.ai);
 		});
 	});
 });

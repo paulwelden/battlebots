@@ -4,6 +4,7 @@ var bot = require('./bot');
 var gameState = require('./gameState');
 var projectile = require('./projectile');
 var constants = require('./constants');
+var collisions = required('./collisionDetection');
 
 module.exports = class actionEval {
 
@@ -19,7 +20,20 @@ module.exports = class actionEval {
 		}
 		var targetCoord = action.MoveTowardsPosition;
 		if (targetCoord) {
-		    //TODO need to do hit detection bot -> bot and bot -> wall
+			//TODO need to do hit detection bot -> bot
+			if (targetCoord.x < 0) {
+				targetCoord.x = 0;
+			}
+			if (targetCoord.x > constants.WORLD_WIDTH()) {
+				targetCoord.x = constants.WORLD_WIDTH();
+			}
+			if (targetCoord.y < 0) {
+				targetCoord.y = 0;
+			}
+			if (targetCoord.y > constants.WORLD_HEIGHT()) {
+				targetCoord.y = constants.WORLD_HEIGHT();
+			}
+
 			var angleTo = botToEval.angleToMove(targetCoord);
 
 			var distanceTo = botToEval.distanceTo(targetCoord);
@@ -67,7 +81,7 @@ module.exports = class actionEval {
 
 	static fire(botToFire, gState) {
 		var bullet = new projectile(bot.facing, 20, bot.position);
-		gState.projectile.push(bullet);
+		gState.projectiles.push(bullet);
 		bot.shotCooldown = 10;
 	}
 }

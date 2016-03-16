@@ -28,13 +28,13 @@ module.exports = class bot {
 		return Math.abs(dist);
 	}
 
-	angleToFace(coordinate) {
-		var angle = this.angleTo(coordinate, this.facing);
+	angleToFace(coord) {
+		var angle = this.angleTo(coord, this.facing);
 		return angle;
 	}
 
-	angleToMove(coordinate) {
-		var angle = this.angleTo(coordinate, this.heading);
+	angleToMove(coord) {
+		var angle = this.angleTo(coord, this.heading);
 		return angle;
 	}
 
