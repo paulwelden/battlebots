@@ -2,6 +2,7 @@
 var game = require('./gameState');
 var actions = require('./actions');
 var actionEval = require('./actionEval');
+var projectileEval = require('./projectileEval');
 
 module.exports = class gameEngine{
 
@@ -15,9 +16,24 @@ module.exports = class gameEngine{
         }
 
         //do projectile moves
-        for (var projectile in game.projectiles) {
+        // Start with an initial array
+        var array = ["a", "b", "c"];
+
+        // Find and remove item from an array
+        var i = array.indexOf("b");
+        if(i != -1) {
+            array.splice(i, 1);
+        }
+        for (var projectileKey in game.projectiles) {
+            var projectile = game.projectiles[projectileKey];
+
+            
             if(projectileEval.eval(projectile, game)) {
-                game.projectiles.remove
+                //Remove projectile if we hit them
+                var i = game.projectiles.indexOf(projectileKey);
+                if(i != -1){
+                    game.projectiles.splice(i,1);
+                }
             }
         }
 

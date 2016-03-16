@@ -10,7 +10,8 @@ var bot = require('./bot');
 module.exports = class projectileEval {
 
 	static eval(projectileToEval, gameStateToEval) {
-		actionEval.moveForward(projectileToEval.speed, projectileToEval);
+	    console.log(projectileToEval);
+	    actionEval.moveForward(projectileToEval.speed, projectileToEval);
 
 		var projectileObj = {
 			width: 1,
@@ -36,5 +37,6 @@ module.exports = class projectileEval {
 				return true;
 			}
 		}
+		return false;
 	}
 }
