@@ -58,9 +58,9 @@ module.exports = class actionEval {
 			}
 		}
 
-		targetCoord = action.AimTowardsPosition
+		targetCoord = action.AimTowardsPosition;
 		if (targetCoord) {
-			var angleTo = botToEval.angletoFace(targetCoord)
+			var angleTo = botToEval.angleToFace(targetCoord);
 			if (angleTo !== 0) {
 				botToEval.facing += angleTo > 0 ? Math.min(botToEval.aimRate, angleTo) : Math.max(-botToEval.aimRate, angleTo);
 			}
