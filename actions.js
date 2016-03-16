@@ -1,27 +1,20 @@
 'use strict';
+var coord = required('./coordinate');
 
 module.exports = class actions {
-  static aim(radians) {
+	constructor() {
+		this.fire = false;
+		this.MoveTowardsPosition = null;
+		this.AimTowardsPosition = null;
+	}
 
-  }
+	static MoveTowards(x, y) {
+		var coordinates = new coord(x, y);
+		this.MoveTowardsPosition = coordinates;
+	}
 
-  static changeHeading(radians) {
-
-  }
-
-  static changeFacing(radians) {
-
-  }
-
-  static moveForward(int) {
-
-  }
-
-  static moveBackward(int) {
-
-  }
-
-  static fire() {
-
-  }
+	static AimTowards(x, y) {
+		var coordinates = new coord(x, y);
+		this.AimTowardsPosition = coordinates;
+	}
 }

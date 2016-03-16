@@ -25,13 +25,13 @@ module.exports = class bot {
 	}
 
 	angleTo(targetBot) {
-		if (!(targetBot instanceof Bot)) {
+		if (!(targetBot instanceof bot)) {
 			throw "Not of type Bot";
 		}
 		var dx = this.position.x - targetBot.position.x;
 		var dy = this.position.y - targetBot.position.y;
 		var angleRadians = Math.atan2(dy, dx);
-		var angleDiff = angleRadians - this.facing;
+		var angleDiff = -(angleRadians - this.facing);
 		return angleDiff;
 	}
 }
