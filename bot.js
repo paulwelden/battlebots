@@ -2,11 +2,26 @@
 "use strict";
 
 class Bot {
-	constructor(name, type, startingPosition) {
-		
+	constructor(name, startingPosition) {
+
 		this.name = name;
-		this.type = type;
 		this.position = startingPosition;
 		this.health = 10;
+	}
+
+	heading() {
+
+	}
+
+	facing() {
+
+	}
+
+	distanceTo(bot) {
+
+	}
+
+	angleTo(bot) {
+
 	}
 }
