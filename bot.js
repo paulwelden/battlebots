@@ -11,10 +11,10 @@ module.exports = class bot {
 		this.color = color;
 		this.shotCooldown = 0;
 		this.isHit = false;
-		this.hasShot = false;
 		this.ai = ai;
 		this.turnRate = 10;
 		this.aimRate = 10;
+		this.speed = 10;
 	}
 
 	distanceTo(coord) {
