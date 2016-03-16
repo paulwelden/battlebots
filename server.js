@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 app.get("/", function (req, res) {
-	res.sendFile(__dirname + "/index.html");
+  res.sendFile(__dirname + "/index.html");
 });
 
 app.post("/", function (req, res) {
@@ -28,7 +28,7 @@ app.post("/", function (req, res) {
 
 	console.log(game.activeBots[botName]);
 	console.log(game.activeBots);
-	//event loop
+  //event loop
 	//res.sendFile(__dirname + "/upload.html");
 });
 

@@ -2,7 +2,7 @@
 
 module.exports = class constants {
 	static BOT_SIZE() {
-	  return 30;
+		return 30;
 	}
 
 	static WORLD_WIDTH() {

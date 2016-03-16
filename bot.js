@@ -30,8 +30,10 @@ module.exports = class bot {
 		}
 		var dx = this.position.x - targetBot.position.x;
 		var dy = this.position.y - targetBot.position.y;
+
 		var angleRadians = Math.atan2(dy, dx);
 		var angleDiff = -(angleRadians - this.facing);
+
 		return angleDiff;
 	}
 }
