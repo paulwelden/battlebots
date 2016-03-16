@@ -2,7 +2,7 @@
 
 module.exports = class constants {
 	static BOT_SIZE() {
-		return 30;
+		return 31;
 	}
 
 	static WORLD_WIDTH() {
@@ -23,5 +23,9 @@ module.exports = class constants {
 
 	static ConvertToDegreesFromRadians(radians) {
 		return radians * 180 / Math.PI;
+	}
+
+	static calculateNewPosition(distance, position, angle) {
+
 	}
 }

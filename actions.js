@@ -1,5 +1,5 @@
 'use strict';
-var coord = require('./coordinate');
+var coord = require('./Coordinate');
 
 module.exports = class actions {
 	constructor() {
@@ -11,7 +11,6 @@ module.exports = class actions {
 	}
 
 	MoveTowards(x, y) {
-	    console.log("move to " + x + " and " + y);
 		var coordinates = new coord(x, y);
 		this.MoveTowardsPosition = coordinates;
 	}

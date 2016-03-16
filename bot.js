@@ -11,15 +11,15 @@ module.exports = class bot {
 		this.color = color;
 		this.shotCooldown = 0;
 		this.isHit = false;
-		this.hasShot = false;
 		this.ai = ai;
 		this.turnRate = 10;
 		this.aimRate = 10;
+		this.speed = 10;
 	}
 
 	distanceTo(coord) {
 		if (!(coord instanceof coordinate)) {
-			throw "Not of type Bot";
+			throw "Not of type coordinate";
 		}
 		var dx = this.position.x - coord.x;
 		var dy = this.position.y - coord.y;
@@ -38,8 +38,10 @@ module.exports = class bot {
 	}
 
 	angleTo(coord, currentDirection) {
+	    console.log(coord);
+	    console.log(coordinate);
 		if (!(coord instanceof coordinate)) {
-			throw "Not of type Bot";
+			throw "Not of type coordinate";
 		}
 		var dx = this.position.x - coord.x;
 		var dy = this.position.y - coord.y;

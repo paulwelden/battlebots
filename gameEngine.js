@@ -10,10 +10,8 @@ module.exports = class gameEngine{
         for (var botName in game.activeBots) {
             var bot = game.activeBots[botName];
             var action = new actions();
-            console.log(bot);
             bot.ai(game, action);
-            actionsToDo[bot.botName] = action;
-            console.log(action);
+            actionsToDo[bot.name] = action;
         }
 
         //do projectile moves
@@ -21,9 +19,13 @@ module.exports = class gameEngine{
             projectileEval.eval(projectile, game);
         }
 
-        for (var action in actionsToDo) {
-            actionEval.eval(action, game.activeBots[botName], game);
-            console.log("evaluated action");
+        for (var actionKey in actionsToDo) {
+            var action = actionsToDo[actionKey];
+
+            var bot = game.activeBots[actionKey];
+
+
+            actionEval.eval(action, game.activeBots[actionKey], game);
         }
 
         
