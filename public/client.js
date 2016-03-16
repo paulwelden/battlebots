@@ -7,17 +7,16 @@ $(document).ready(function () {
 
 	$("#userForm").submit(function (e) {
 		$.ajax({
-		   type: "POST",
-		   url: "/",
-		   data: $("#userForm").serialize(), // serializes the form's elements.
-		   success: function(data)
-		   {
-		       $("#addNewBot").hide();
-		   }
-		 });
+			type: "POST",
+			url: "/",
+			data: $("#userForm").serialize(), // serializes the form's elements.
+			success: function(data)
+			{
+				$("#addNewBot").hide();
+			}
+		});
 
-	    e.preventDefault(); // avoid to execute the actual submit of the form.
-
+		e.preventDefault(); // avoid to execute the actual submit of the form.
 	});
 
 	socket.on('scorebaord', function (data) {
