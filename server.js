@@ -31,4 +31,4 @@ function gameEngineTick() {
 		clients[c].emit('tick', arena);
 	}
 }
-setInterval(gameEngineTick, 100);
+setInterval(gameEngineTick, 50);

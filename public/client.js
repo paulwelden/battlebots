@@ -8,39 +8,41 @@ $(document).ready(function () {
 		paintArena(data);
 	});
 
+	var timer = 0;
 	function paintArena(data) {
 		var data = {
 			bots: [
 				{
-					coordinates: {
+					position: {
 						x: 300,
-						y: 250
+						y: 250 + (timer * 5)
 					},
 					heading: 90,
 					aiming: 180,
 					color: 'red'
 				},
 				{
-					coordinates: {
+					position: {
 						x: 120,
 						y: 600
 					},
-					heading: 75,
+					heading: 75 + (timer * 10),
 					aiming: 45,
 					color: 'blue'
 				},
 				{
-					coordinates: {
+					position: {
 						x: 400,
 						y: 400
 					},
 					heading: 0,
-					aiming: 0,
+					aiming: timer * 10,
 					color: 'green'
 				},
 			]
 		};
-
+		timer++;
+		if (timer > 100) timer = 0;
 
 		paintBackground();
 		for (var bot in data.bots) {
@@ -50,7 +52,7 @@ $(document).ready(function () {
 	
 	function paintBot(bot) {
 		ctx.save();
-		ctx.translate(bot.coordinates.x, bot.coordinates.y);
+		ctx.translate(bot.position.x, bot.position.y);
 		ctx.rotate(bot.heading * Math.PI / 180);
 
 		ctx.fillStyle = bot.color;
@@ -62,6 +64,10 @@ $(document).ready(function () {
 
 		ctx.rotate(bot.aiming * Math.PI / 180);
 		ctx.fillRect(0, -3, 35, 5);
+		ctx.beginPath();
+		ctx.arc(0, 0, 5, 0, 2 * Math.PI);
+		ctx.closePath();
+		ctx.fill();
 
 		ctx.restore();
 	}
