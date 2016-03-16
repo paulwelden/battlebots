@@ -3,28 +3,28 @@ var game = require('./gameState');
 var actions = require('./actions');
 var actionEval = require('./actionEval');
 
-module.exports = class gameEngine{
+module.exports = class gStateEngine{
 
-    static tick(game) {
+    static tick(gState) {
         var actionsToDo = [];
-        for (var botName in game.activeBots) {
-            var bot = game.activeBots[botName];
+        for (var botName in gState.activeBots) {
+            var bot = gState.activeBots[botName];
             var action = new actions();
-            bot.ai(game, action);
+            bot.ai(gState, action);
             actionsToDo[bot.name] = action;
         }
 
         //do projectile moves
-        for (var projectile in game.projectiles) {
-            projectileEval.eval(projectile, game);
+        for (var projectile in gState.projectiles) {
+            projectileEval.eval(projectile, gState);
         }
 
         for (var actionKey in actionsToDo) {
             var action = actionsToDo[actionKey];
 
-            var bot = game.activeBots[actionKey];
+            var bot = gState.activeBots[actionKey];
 
-            actionEval.eval(action, game.activeBots[actionKey], game);
+            actionEval.eval(action, gState.activeBots[actionKey], gState);
         }
     }
 }
