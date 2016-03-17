@@ -35,11 +35,11 @@ $(document).ready(function () {
 	var botEffects = {};
 	function paintArena(data) {
 		paintBackground();
-		for (var bot in data.activeBots) {
-			paintBot(data.activeBots[bot]);
-		}
 		for (var i = 0; i < data.projectiles.length; i++) {
 			paintProjectile(data.projectiles[i], data.activeBots[data.projectiles[i].ownerName].color);
+		}
+		for (var bot in data.activeBots) {
+			paintBot(data.activeBots[bot]);
 		}
 	}
 
