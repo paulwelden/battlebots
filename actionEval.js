@@ -46,7 +46,7 @@ module.exports = class actionEval {
 			
 			var distanceTo = botToEval.distanceTo(targetCoord);
 			var turnTime = Math.abs(angleTo) / botToEval.turnRate;
-			if ((angleTo >= 1 ||  angleTo <= -1) && distanceTo > 1 ) {
+			if ((angleTo >= .1 ||  angleTo <= -.1) && distanceTo > 1 ) {
 				// TODO collision detection
 				if(turnTime >= 1) {
 					distanceTo = 0;
