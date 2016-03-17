@@ -10,24 +10,24 @@ module.exports = class gameEngine{
 	static tick(game) {
 		var actionsToDo = [];
 		for (var botName in game.activeBots) {
-		    var bot = clone(game.activeBots[botName]);
-            if(bot.health > 0){
-			    bot.isHit = false;
-			    var action = new actions();
-			    try {
-				    bot.ai(bot, clone(game), action);
-			    }catch(err) {
-				    //do-nothing
-			    }
-			    actionsToDo[bot.name] = action;
-			    game.activeBots[botName].config = bot.config;
-			    bot = game.activeBots[botName];
-			    if (bot.shotCooldown  > 0) {
-				    bot.shotCooldown--;
-			    }
-            }else{
-                delete game.activeBots[botName];
-            }
+			var bot = clone(game.activeBots[botName]);
+			if(bot.health > 0){
+				bot.isHit = false;
+				var action = new actions();
+				try {
+					bot.ai(bot, clone(game), action);
+				}catch(err) {
+					//do-nothing
+				}
+				actionsToDo[bot.name] = action;
+				game.activeBots[botName].config = bot.config;
+				bot = game.activeBots[botName];
+				if (bot.shotCooldown  > 0) {
+					bot.shotCooldown--;
+				}
+			}else{
+				delete game.activeBots[botName];
+			}
 		}
 
 		var existingProjectiles = [];

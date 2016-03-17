@@ -13,10 +13,10 @@ module.exports = class projectileEval {
 		actionEval.moveForward(projectileToEval.speed, projectileToEval);
 
 		//If it is off the map record it as a collision
-		if(projectileToEval.position.x > constants.WORLD_WIDTH() || projectileToEval.position.x < 0){
+		if(projectileToEval.position.x > constants.WORLD_WIDTH() || projectileToEval.position.x < 0) {
 			return true;
 		}
-		if(projectileToEval.position.y > constants.WORLD_HEIGHT() || projectileToEval.position.y < 0){
+		if(projectileToEval.position.y > constants.WORLD_HEIGHT() || projectileToEval.position.y < 0) {
 			return true;
 		}
 
@@ -31,8 +31,6 @@ module.exports = class projectileEval {
 			var botToEval = gameStateToEval.activeBots[botKey];
 			if (botToEval == projectileToEval.owner)
 				continue;
-			//console.log(projectileObj);
-			
 
 			var botObj = {
 				width : constants.BOT_SIZE(),
@@ -43,10 +41,7 @@ module.exports = class projectileEval {
 			};
 
 			if (projectileEval.evalCollision(projectileObj, botObj)) {
-			    console.log('collision');
-			    console.log(projectileObj);
-			    console.log(botObj);
-				botToEval.health = botToEval.health - 6;
+				botToEval.health = botToEval.health - 5;
 				botToEval.isHit = true;
 				return true;
 			}
@@ -54,14 +49,14 @@ module.exports = class projectileEval {
 		return false;
 	}
 
-    static evalCollision(obj1, obj2){
-        if(obj1.x < obj2.x + obj2.width && 
-            obj1.x + obj1.width > obj2.x &&
-            obj1.y < obj2.y + obj2.height &&
-            obj1.y + obj1.height > obj2.y)
-        {
-            return true;
-        }
-        return false;
+	static evalCollision(obj1, obj2) {
+		if(obj1.x < obj2.x + obj2.width &&
+			obj1.x + obj1.width > obj2.x &&
+			obj1.y < obj2.y + obj2.height &&
+			obj1.y + obj1.height > obj2.y)
+		{
+			return true;
+		}
+		return false;
 	}
 }

@@ -13,7 +13,7 @@ module.exports = class actionEval {
 
 	static eval(action, botToEval, gState) {
 	            
-	    var oldPos=JSON.parse(JSON.stringify(botToEval.position));
+		var oldPos=JSON.parse(JSON.stringify(botToEval.position));
 	    
 		if (!(action instanceof actions)) {
 			throw "action is garbage";
@@ -65,28 +65,28 @@ module.exports = class actionEval {
 			}
 		}
 		var botBox={
-		    x:botToEval.position.x,
-		    y:botToEval.position.y,
-		    height:constants.BOT_SIZE(),
-		    width:constants.BOT_SIZE()
+			x:botToEval.position.x,
+			y:botToEval.position.y,
+			height:constants.BOT_SIZE(),
+			width:constants.BOT_SIZE()
 		};
 
 		for(var botToCollideName in gState.activeBots){
-		    if(botToCollideName==botToEval.name)
-		        continue;
+			if(botToCollideName==botToEval.name)
+				continue;
             
-		    var botToCollide = gState.activeBots[botToCollideName];
-		    var targetBox={
-		        x:botToCollide.position.x,
-		        y:botToCollide.position.y,
-		        height:constants.BOT_SIZE(),
-		        width:constants.BOT_SIZE()
-		    };
-		    if(collisions.eval(botBox,targetBox)){
+			var botToCollide = gState.activeBots[botToCollideName];
+			var targetBox={
+				x:botToCollide.position.x,
+				y:botToCollide.position.y,
+				height:constants.BOT_SIZE(),
+				width:constants.BOT_SIZE()
+			};
+			if(collisions.eval(botBox,targetBox)){
 		        
-		        botToEval.position.x=oldPos.x;
-		        botToEval.position.y=oldPos.y;
-		    }
+				botToEval.position.x=oldPos.x;
+				botToEval.position.y=oldPos.y;
+			}
 		}
 
 		targetCoord = action.AimTowardsPosition;
@@ -111,17 +111,16 @@ module.exports = class actionEval {
 		botToMoveForward.position.y += distanceTo * Math.sin(radiansFromDegree);
 	}
 
-    static moveBackwards(distanceTo, botToMoveForward) {
-        //move forwards according to the bots defined movement rate
-	    var radiansFromDegree = 	constants.ConvertToRadiansFromDegrees( botToMoveForward.heading);
-	    botToMoveForward.position.x -= distanceTo * Math.cos(radiansFromDegree);
-	    botToMoveForward.position.y -= distanceTo * Math.sin(radiansFromDegree);
+	static moveBackwards(distanceTo, botToMoveForward) {
+		//move forwards according to the bots defined movement rate
+		var radiansFromDegree = 	constants.ConvertToRadiansFromDegrees( botToMoveForward.heading);
+		botToMoveForward.position.x -= distanceTo * Math.cos(radiansFromDegree);
+		botToMoveForward.position.y -= distanceTo * Math.sin(radiansFromDegree);
 	}
 
-    static fire(botToFire, gState) {
-        //var positionCopy = deepcopy(botToFire.position);
-        var positionCopy = JSON.parse(JSON.stringify(botToFire.position));
-        var bullet = new projectile(botToFire.facing, 15, positionCopy, botToFire);
+	static fire(botToFire, gState) {
+		var positionCopy = JSON.parse(JSON.stringify(botToFire.position));
+		var bullet = new projectile(botToFire.facing, 15, positionCopy, botToFire.name);
 		gState.projectiles.push(bullet);
 		botToFire.shotCooldown = 10;
 	}

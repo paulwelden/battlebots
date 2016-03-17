@@ -6,7 +6,7 @@ module.exports = class bot {
 	constructor(name, color, startingPosition, ai) {
 		this.name = name;
 		this.position = startingPosition;
-		this.health = 10;
+		this.health = 100;
 		this.heading = 0;
 		this.facing = 0;
 		this.color = color;
