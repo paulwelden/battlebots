@@ -89,12 +89,12 @@ $(document).ready(function () {
 			paintBot(data.activeBots[bot]);
 		}
 		for (var i = 0; i < data.projectiles.length; i++) {
-			paintProjectile(data.projectiles[i]);
+			paintProjectile(data.projectiles[i], data.activeBots[data.projectiles[i].ownerName].color);
 		}
 	}
 
-	function paintProjectile(projectile) {
-		ctx.fillStyle = 'black';
+	function paintProjectile(projectile, color) {
+		ctx.fillStyle = color;
 		ctx.beginPath();
 		ctx.arc(projectile.position.x, projectile.position.y, 5, 0, 2 * Math.PI);
 		ctx.closePath();
