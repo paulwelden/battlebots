@@ -9,7 +9,7 @@ var actionEval = require('./actionEval');
 var projectileEval = require('./projectileEval');
 var gameEngine = require('./gameEngine');
 
-http.listen(3000);
+http.listen(process.env.PORT || 3000);
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({
 	extended: true
