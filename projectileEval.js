@@ -29,7 +29,7 @@ module.exports = class projectileEval {
 
 		for (var botKey in gameStateToEval.activeBots) {
 			var botToEval = gameStateToEval.activeBots[botKey];
-			if (botToEval == projectileToEval.owner)
+			if (botToEval.name === projectileToEval.ownerName)
 				continue;
 
 			var botObj = {

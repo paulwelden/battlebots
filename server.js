@@ -37,14 +37,21 @@ var game = new gamestate();
 var clients = {};
 io.on('connection', function(socket) {
 	clients[socket.id] = socket;
+	socket.on('disconnect', function() {
+		clients[socket.id] = null;
+	});
+	socket.on('reset', function () {
+		console.log('client reset the game');
+		game = new gamestate();
+	});
 });
 
 function gameEngineTick() {
 	gameEngine.tick(game);
 
 	for (var c in clients) {
-		clients[c].emit('tick', game);
+		if(clients[c] !== null)
+			clients[c].emit('tick', game);
 	}
 }
-
 setInterval(gameEngineTick, 50);

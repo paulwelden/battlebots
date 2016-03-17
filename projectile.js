@@ -5,6 +5,6 @@ module.exports = class projectile {
 		this.heading = heading;
 		this.speed = speed;
 		this.position = position;
-		this.owner = owner;
+		this.ownerName = owner;
 	}
 }
