@@ -5,17 +5,16 @@ var actionEval = require('./actionEval');
 var projectileEval = require('./projectileEval');
 var deepcopy = require('deepcopy');
 
-
 module.exports = class gameEngine{
 
-    static tick(game) {
-        var actionsToDo = [];
-        for (var botName in game.activeBots) {
-            var bot = game.activeBots[botName];
-            bot.isHit = false;
-            var action = new actions();
-            bot.ai(game, action);
-            actionsToDo[bot.name] = action;
+	static tick(game) {
+		var actionsToDo = [];
+		for (var botName in game.activeBots) {
+			var bot = game.activeBots[botName];
+			bot.isHit = false;
+			var action = new actions();
+			bot.ai(bot, game, action);
+			actionsToDo[bot.name] = action;
 			if (bot.shotCooldown  > 0) {
 				bot.shotCooldown--;
 			}
@@ -33,9 +32,7 @@ module.exports = class gameEngine{
 		game.projectiles = existingProjectiles;
 		for (var actionKey in actionsToDo) {
 			var action = actionsToDo[actionKey];
-
 			var bot = game.activeBots[actionKey];
-
 			actionEval.eval(action, game.activeBots[actionKey], game);
 		}
 
@@ -43,7 +40,5 @@ module.exports = class gameEngine{
 			let origProto = Object.getPrototypeOf(orig);
 			return Object.assign(Object.create(origProto), orig);
 		}
-
 	}
-
 }
