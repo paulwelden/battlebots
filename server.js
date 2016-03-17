@@ -37,13 +37,18 @@ var game = new gamestate();
 var clients = {};
 io.on('connection', function(socket) {
 	clients[socket.id] = socket;
+	socket.on('disconnect', function(){
+    console.log('user disconnected');
+		clients[socket.id] = null;
+  });
 });
 
 function gameEngineTick() {
 	gameEngine.tick(game);
 
 	for (var c in clients) {
-		clients[c].emit('tick', game);
+		if(clients[c] !== null)
+			clients[c].emit('tick', game);
 	}
 }
 
