@@ -8,14 +8,18 @@ var deepcopy = require('deepcopy');
 
 module.exports = class gameEngine{
 
-    static tick(game) {
-        var actionsToDo = [];
-        for (var botName in game.activeBots) {
-            var bot = game.activeBots[botName];
-            bot.isHit = false;
-            var action = new actions();
-            bot.ai(game, action);
-            actionsToDo[bot.name] = action;
+	static tick(game) {
+		var actionsToDo = [];
+		for (var botName in game.activeBots) {
+			var bot = game.activeBots[botName];
+			bot.isHit = false;
+			var action = new actions();
+			try {
+				bot.ai(bot, game, action);
+			}catch(err) {
+				//do-nothing
+			}
+			actionsToDo[bot.name] = action;
 			if (bot.shotCooldown  > 0) {
 				bot.shotCooldown--;
 			}
