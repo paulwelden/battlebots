@@ -13,10 +13,10 @@ module.exports = class projectileEval {
 		actionEval.moveForward(projectileToEval.speed, projectileToEval);
 
 		//If it is off the map record it as a collision
-		if(projectileToEval.position.x > constants.WORLD_WIDTH() || projectileToEval.position.x < 0){
+		if(projectileToEval.position.x > constants.WORLD_WIDTH() + constants.BOT_SIZE() || projectileToEval.position.x < 0 - constants.BOT_SIZE()){
 			return true;
 		}
-		if(projectileToEval.position.y > constants.WORLD_HEIGHT() || projectileToEval.position.y < 0){
+		if(projectileToEval.position.y > constants.WORLD_HEIGHT() + constants.BOT_SIZE() || projectileToEval.position.y < 0 - constants.BOT_SIZE()){
 			return true;
 		}
 
