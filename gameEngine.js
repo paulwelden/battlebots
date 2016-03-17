@@ -5,7 +5,6 @@ var actionEval = require('./actionEval');
 var projectileEval = require('./projectileEval');
 var deepcopy = require('deepcopy');
 
-
 module.exports = class gameEngine{
 
 	static tick(game) {
@@ -44,9 +43,7 @@ module.exports = class gameEngine{
 		game.projectiles = existingProjectiles;
 		for (var actionKey in actionsToDo) {
 			var action = actionsToDo[actionKey];
-
 			var bot = game.activeBots[actionKey];
-
 			actionEval.eval(action, game.activeBots[actionKey], game);
 		}
 
@@ -54,7 +51,5 @@ module.exports = class gameEngine{
 			let origProto = Object.getPrototypeOf(orig);
 			return Object.assign(Object.create(origProto), orig);
 		}
-
 	}
-
 }

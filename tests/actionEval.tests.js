@@ -4,12 +4,13 @@ var actionEval = require('../actionEval');
 var actions = require('../actions');
 var gameState = require('../gameState');
 var bot = require('../bot');
+var coord = require('../coordinate');
 
 describe('actionEvalTests', function () {
 	describe('#eval()', function () {
 		it('should execute the eval function', function () {
 			var action = new actions();
-			var myBot = new bot();
+			var myBot = new bot('test', 'color', new coord(100, 100), function () {});
 			var gs = new gameState();
 
 			actionEval.eval(action, myBot, gs);
