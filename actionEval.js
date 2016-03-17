@@ -121,7 +121,7 @@ module.exports = class actionEval {
     static fire(botToFire, gState) {
         //var positionCopy = deepcopy(botToFire.position);
         var positionCopy = JSON.parse(JSON.stringify(botToFire.position));
-        var bullet = new projectile(botToFire.facing, 15, positionCopy);
+        var bullet = new projectile(botToFire.facing, 15, positionCopy, botToFire);
 		gState.projectiles.push(bullet);
 		botToFire.shotCooldown = 10;
 	}
