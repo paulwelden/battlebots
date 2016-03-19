@@ -11,12 +11,10 @@ module.exports = class actions {
 	}
 
 	MoveTowards(x, y) {
-		var coordinates = new coord(x, y);
-		this.MoveTowardsPosition = coordinates;
+		this.MoveTowardsPosition = new coord(x, y);
 	}
 
 	AimTowards(x, y) {
-		var coordinates = new coord(x, y);
-		this.AimTowardsPosition = coordinates;
+		this.AimTowardsPosition = new coord(x, y);
 	}
 }

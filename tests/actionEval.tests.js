@@ -10,7 +10,7 @@ describe('actionEvalTests', function () {
 	describe('#eval()', function () {
 		it('should execute the eval function', function () {
 			var action = new actions();
-			var myBot = new bot('test', 'color', new coord(100, 100), function () {});
+			var myBot = new bot('test', 'color', new coord(100, 100), function () { });
 			var gs = new gameState();
 
 			actionEval.eval(action, myBot, gs);
@@ -20,7 +20,7 @@ describe('actionEvalTests', function () {
 	describe('#moveForward()', function () {
 		it('should execute the moveForward function', function () {
 			var gs = new gameState();
-			var myBot = gs.createBot('Mr Test', 'red', 'type', function () { console.log('AI'); })
+			var myBot = gs.createBot('Mr Test', 'red', 'type', function () { })
 			actionEval.moveForward(10, myBot);
 		});
 	});
@@ -28,7 +28,7 @@ describe('actionEvalTests', function () {
 	describe('#fire(botToFire, gState)', function () {
 		it('should execute the fire function', function () {
 			var gs = new gameState();
-			var myBot = gs.createBot('Mr Test', 'red', 'type', function () { console.log('AI'); })
+			var myBot = gs.createBot('Mr Test', 'red', 'type', function () { })
 
 			actionEval.fire(myBot, gs);
 		});

@@ -42,4 +42,92 @@ describe('bot', function () {
 			angle.should.be.eql(90);
 		});
 	});
+
+	describe('#angleTo(coord, currentDirection)', function () {
+		it('should determine angle between coord (10,-10) and currentDirection (0)', function () {
+			var b = new bot('', '', new coordinate(0, 0), function () { });
+			var result = b.angleTo(new coordinate(10, -10), 0);
+			result.should.be.eql(-45);
+		});
+		it('should determine angle between coord (-10,-10) and currentDirection (0)', function () {
+			var b = new bot('', '', new coordinate(0, 0), function () { });
+			var result = b.angleTo(new coordinate(-10, -10), 0);
+			result.should.be.eql(-135);
+		});
+		it('should determine angle between coord (-10,10) and currentDirection (0)', function () {
+			var b = new bot('', '', new coordinate(0, 0), function () { });
+			var result = b.angleTo(new coordinate(-10, 10), 0);
+			result.should.be.eql(135);
+		});
+		it('should determine angle between coord (10,10) and currentDirection (0)', function () {
+			var b = new bot('', '', new coordinate(0, 0), function () { });
+			var result = b.angleTo(new coordinate(10, 10), 0);
+			result.should.be.eql(45);
+		});
+		it('should determine angle between coord (10,-10) and currentDirection (90)', function () {
+			var b = new bot('', '', new coordinate(0, 0), function () { });
+			var result = b.angleTo(new coordinate(10, -10), 90);
+			result.should.be.eql(-135);
+		});
+		it('should determine angle between coord (-10,-10) and currentDirection (90)', function () {
+			var b = new bot('', '', new coordinate(0, 0), function () { });
+			var result = b.angleTo(new coordinate(-10, -10), 90);
+			result.should.be.eql(135);
+		});
+		it('should determine angle between coord (-10,10) and currentDirection (90)', function () {
+			var b = new bot('', '', new coordinate(0, 0), function () { });
+			var result = b.angleTo(new coordinate(-10, 10), 90);
+			result.should.be.eql(45);
+		});
+		it('should determine angle between coord (10,10) and currentDirection (90)', function () {
+			var b = new bot('', '', new coordinate(0, 0), function () { });
+			var result = b.angleTo(new coordinate(10, 10), 90);
+			result.should.be.eql(-45);
+		});
+		it('should determine angle between coord (10,-10) and currentDirection (180)', function () {
+			var b = new bot('', '', new coordinate(0, 0), function () { });
+			var result = b.angleTo(new coordinate(10, -10), 180);
+			result.should.be.eql(135);
+		});
+		it('should determine angle between coord (-10,-10) and currentDirection (180)', function () {
+			var b = new bot('', '', new coordinate(0, 0), function () { });
+			var result = b.angleTo(new coordinate(-10, -10), 180);
+			result.should.be.eql(45);
+		});
+		it('should determine angle between coord (-10,10) and currentDirection (180)', function () {
+			var b = new bot('', '', new coordinate(0, 0), function () { });
+			var result = b.angleTo(new coordinate(-10, 10), 180);
+			result.should.be.eql(-45);
+		});
+		it('should determine angle between coord (10,10) and currentDirection (180)', function () {
+			var b = new bot('', '', new coordinate(0, 0), function () { });
+			var result = b.angleTo(new coordinate(10, 10), 180);
+			result.should.be.eql(-135);
+		});
+		it('should determine angle between coord (10,-10) and currentDirection (-90)', function () {
+			var b = new bot('', '', new coordinate(0, 0), function () { });
+			var result = b.angleTo(new coordinate(10, -10), -90);
+			result.should.be.eql(45);
+		});
+		it('should determine angle between coord (-10,-10) and currentDirection (-90)', function () {
+			var b = new bot('', '', new coordinate(0, 0), function () { });
+			var result = b.angleTo(new coordinate(-10, -10), -90);
+			result.should.be.eql(-45);
+		});
+		it('should determine angle between coord (-10,10) and currentDirection (-90)', function () {
+			var b = new bot('', '', new coordinate(0, 0), function () { });
+			var result = b.angleTo(new coordinate(-10, 10), -90);
+			result.should.be.eql(-135);
+		});
+		it('should determine angle between coord (10,10) and currentDirection (-90)', function () {
+			var b = new bot('', '', new coordinate(0, 0), function () { });
+			var result = b.angleTo(new coordinate(10, 10), -90);
+			result.should.be.eql(135);
+		});
+		it('should work without using the coordinate object', function () {
+			var b = new bot('', '', new coordinate(0, 0), function () { });
+			var result = b.angleTo({ x: 0, y: 10 }, 0);
+			result.should.be.eql(90);
+		});
+	});
 });

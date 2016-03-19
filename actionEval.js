@@ -1,4 +1,4 @@
-'use strict';
+	'use strict';
 var actions = require('./actions');
 var bot = require('./bot');
 var gameState = require('./gameState');
@@ -21,7 +21,7 @@ module.exports = class actionEval {
 			throw "gState is garbage";
 		}
 
-		var oldPos=JSON.parse(JSON.stringify(botToEval.position));
+		var oldPos = JSON.parse(JSON.stringify(botToEval.position));
 		var targetCoord = action.MoveTowardsPosition;
 		if (targetCoord) {
 			if (targetCoord.x < 10) {
@@ -106,7 +106,7 @@ module.exports = class actionEval {
 
 	static moveBackwards(distanceTo, botToMoveForward) {
 		//move forwards according to the bots defined movement rate
-		var radiansFromDegree = 	constants.ConvertToRadiansFromDegrees( botToMoveForward.heading);
+		var radiansFromDegree = constants.ConvertToRadiansFromDegrees( botToMoveForward.heading);
 		botToMoveForward.position.x -= distanceTo * Math.cos(radiansFromDegree);
 		botToMoveForward.position.y -= distanceTo * Math.sin(radiansFromDegree);
 	}

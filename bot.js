@@ -5,14 +5,14 @@ var constants = require('./constants');
 module.exports = class bot {
 	constructor(name, color, startingPosition, ai) {
 		this.name = name;
+0		this.color = color;
 		this.position = startingPosition;
+		this.ai = ai;
 		this.health = 100;
 		this.heading = 0;
 		this.facing = 0;
-		this.color = color;
 		this.shotCooldown = 0;
 		this.isHit = false;
-		this.ai = ai;
 		this.turnRate = 4;
 		this.aimRate = 4;
 		this.speed = 4;
@@ -20,34 +20,57 @@ module.exports = class bot {
 	}
 
 	distanceTo(coord) {
-		if (!(coord instanceof coordinate)) {
-			throw coord + " is not of type coordinate";
+		if (!coord.hasOwnProperty("x")) {
+			throw coord + " does not have property x";
+		} else if (!coord.hasOwnProperty("y")) {
+			throw coord + " does not have property y";
 		}
 		var dx = this.position.x - coord.x;
 		var dy = this.position.y - coord.y;
-		var dist = Math.sqrt((dx * dx) + (dy * dy));
-		return Math.abs(dist);
+		return Math.sqrt((dx * dx) + (dy * dy));
 	}
 
 	angleToFace(coord) {
-		var angle = this.angleTo(coord, this.facing);
-		return angle;
+		return this.angleTo(coord, this.facing);
 	}
 
 	angleToMove(coord) {
-		var angle = this.angleTo(coord, this.heading);
-		return angle;
+		return this.angleTo(coord, this.heading);
 	}
 
 	angleTo(coord, currentDirection) {
-		if (!(coord instanceof coordinate)) {
-			throw coord + " is not of type coordinate";
+		if (!coord.hasOwnProperty("x")) {
+			throw coord + " does not have property x";
+		} else if (!coord.hasOwnProperty("y")) {
+			throw coord + " does not have property y";
 		}
 
-		var dx = coord.x - this.position.x ;
-		var dy = coord.y - this.position.y ;
-		var angleRadians = Math.atan2(dy, dx);
-		var angleDiff = (  constants.ConvertToDegreesFromRadians( angleRadians) - currentDirection) % 360;
-		return angleDiff;
+		var dx = coord.x - this.position.x;
+		var dy = coord.y - this.position.y;
+		var targetAngle = constants.ConvertToDegreesFromRadians(Math.atan2(dy, dx));
+		
+		var targetAngle360 = this.convertAngleToBase360(targetAngle);
+		var currentAngle360 = this.convertAngleToBase360(currentDirection);
+		
+		var rotatedTargetAngle360;
+		if (currentAngle360 > 180) {
+			rotatedTargetAngle360 = targetAngle360 + (360 - currentAngle360) % 360;
+		} else {
+			rotatedTargetAngle360 = targetAngle360 - currentAngle360;
+		}
+
+		return this.convertAngleToBase180(rotatedTargetAngle360)
+	}
+
+	convertAngleToBase360(angle) {
+		return (360 + angle) % 360;
+	}
+
+	convertAngleToBase180(angle) {
+		if (angle > 180) {
+			return -(360 - angle);
+		} else {
+			return angle;
+		}
 	}
 }
