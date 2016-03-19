@@ -10,22 +10,23 @@ module.exports = class gameEngine{
 	static tick(game) {
 		var actionsToDo = [];
 		for (var botName in game.activeBots) {
-			var bot = clone(game.activeBots[botName]);
-			if(bot.health > 0){
+			var bot = game.activeBots[botName];
+			if (bot.health > 0) {
 				bot.isHit = false;
-				var action = new actions();
-				try {
-					bot.ai(bot, clone(game), action);
-				}catch(err) {
-					//do-nothing
-				}
-				actionsToDo[bot.name] = action;
-				game.activeBots[botName].config = bot.config;
-				bot = game.activeBots[botName];
 				if (bot.shotCooldown  > 0) {
 					bot.shotCooldown--;
 				}
-			}else{
+
+				var botClone = clone(bot);
+				var action = new actions();
+				try {
+					bot.ai(botClone, clone(game), action);
+				} catch(err) {
+					//do-nothing
+				}
+				actionsToDo[bot.name] = action;
+				bot.config = botClone.config;
+			} else {
 				delete game.activeBots[botName];
 			}
 		}
@@ -41,6 +42,7 @@ module.exports = class gameEngine{
 			}
 		}
 		game.projectiles = existingProjectiles;
+
 		for (var actionKey in actionsToDo) {
 			var action = actionsToDo[actionKey];
 			var bot = game.activeBots[actionKey];

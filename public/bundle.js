@@ -106,6 +106,11 @@ $(document).ready(function () {
 	}
 
 	socket.on('tick', function (data) {
+		for (var b in botEffects) {
+			if (data.activeBots[b] === undefined) {
+				delete botEffects[b];
+			}
+		}
 		paintArena(data);
 		paintScoreboard(data);
 	});
@@ -176,15 +181,12 @@ $(document).ready(function () {
 		// translate hit/shot events into client-side counters
 		if (botEffects[bot.name] === undefined) {
 			botEffects[bot.name] = {
-				hitEffectCountdown: 0,
-				shotEffectCountdown: 0
+				hitEffectCountdown: 0
 			};
 		}
-		if (bot.isHit) {
+		if (bot.isHit === true) {
 			botEffects[bot.name].hitEffectCountdown = 25;
-		}
-		if (bot.hasShot) {
-			botEffects[bot.name].shotEffectCountdown = 2;
+			console.log(botEffects);
 		}
 
 		ctx.save();
