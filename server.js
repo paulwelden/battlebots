@@ -28,8 +28,10 @@ io.on('connection', function (socket) {
 		clients[socket.id] = null;
 	});
 	socket.on('newbot', function (data, callback) {
-		if (game.activeBots[data.name] !== undefined) {
-			callback(false, 'Name must be unique.');
+		if (data.name.trim().length === 0) {
+			callback(false, "Name cannot be empty or whitespace.");
+		} else if (game.activeBots[data.name] !== undefined) {
+			callback(false, "Name is already in use.");
 		} else {
 			var botAI;
 			try {
@@ -37,7 +39,7 @@ io.on('connection', function (socket) {
 				game.activeBots[data.name] = game.createBot(data.name, data.color, botAI);
 				callback(true, "");
 			} catch (err) {
-				callback(false, "Script validation failure: " + err.message);
+				callback(false, "Invalid AI: " + err.message);
 			}
 		}
 	});
