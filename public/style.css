@@ -85,3 +85,8 @@
 		#messages li:nth-child(odd) {
 			background: #eee;
 		}
+
+.adminBtn {
+	width: 100px;
+	margin: 3px;
+}

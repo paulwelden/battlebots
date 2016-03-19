@@ -61,19 +61,33 @@ var constants = require('../constants');
 $(document).ready(function () {
 	var socket = io.connect();
 
-	$("#resetBtn").click(function (e) {
+	// Admin functions
+	$("#resetBtn").click(function () {
 		socket.emit('reset');
 	});
+	$("#pauseBtn").click(function () {
+		socket.emit('pause');
+	});
+	$("#resumeBtn").click(function () {
+		socket.emit('resume');
+	});
 
+	// Chat events
 	$('#chatForm').submit(function (e) {
 		var message = $('#chatInput')[0].value;
 		if (message.length > 0) {
 			socket.emit('message', message);
 			$('#chatInput')[0].value = '';
-			}
+		}
 		e.preventDefault();
-		});
+	});
 
+	socket.on('chat', function (message) {
+		$('#messages').append($('<li>').text(message));
+		$('#messages')[0].scrollTop = $('#messages')[0].scrollHeight;
+	});
+
+	// New Bot events
 	$("#userForm").submit(function (e) {
 		$("#newboterror")[0].innerText = "";
 		var newBot = {
@@ -94,11 +108,6 @@ $(document).ready(function () {
 	socket.on('tick', function (data) {
 		paintArena(data);
 		paintScoreboard(data);
-	});
-
-	socket.on('chat', function (message) {
-		$('#messages').append($('<li>').text(message));
-		$('#messages')[0].scrollTop = $('#messages')[0].scrollHeight;
 	});
 
 	function paintScoreboard(data) {

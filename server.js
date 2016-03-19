@@ -49,6 +49,12 @@ io.on('connection', function (socket) {
 	socket.on('reset', function () {
 		game = new gamestate();
 	});
+	socket.on('pause', function () {
+		game.active = false;
+	});
+	socket.on('resume', function () {
+		game.active = true;
+	});
 });
 
 // send a chat message to each client
@@ -62,10 +68,11 @@ function emitMessage(message) {
 
 // game engine ticket and emit results to all clients
 function gameEngineTick() {
-	gameEngine.tick(game);
-
+	if (game.active === true) {
+		gameEngine.tick(game);
+	}
 	for (var c in clients) {
-		if(clients[c] !== null)
+		if (clients[c] !== null)
 			clients[c].emit('tick', game);
 	}
 }

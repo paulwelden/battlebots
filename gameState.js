@@ -8,6 +8,7 @@ module.exports = class gameState {
 	constructor() {
 		this.activeBots = {};
 		this.projectiles = [];
+		this.active = true;
 	}
 
 	createBot(name, color, ai) {
