@@ -62,7 +62,7 @@
 }
 
 	#chatForm input {
-		width: 645px;
+		width: 646px;
 		margin-left: 1px;
 	}
 
@@ -74,7 +74,7 @@
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
-	height: 222px;
+	height: 221px;
 	overflow-y: scroll;
 }
 
