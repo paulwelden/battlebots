@@ -127,7 +127,7 @@ $(document).ready(function () {
 			};
 		}
 		if (bot.isHit === true) {
-			botEffects[bot.name].hitEffectCountdown = 25;
+			botEffects[bot.name].hitEffectCountdown = 16;
 		}
 
 		ctx.save();

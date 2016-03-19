@@ -178,15 +178,14 @@ $(document).ready(function () {
 	}
 
 	function paintBot(ctx, bot) {
-		// translate hit/shot events into client-side counters
+		// translate hit events into client-side counters
 		if (botEffects[bot.name] === undefined) {
 			botEffects[bot.name] = {
 				hitEffectCountdown: 0
 			};
 		}
 		if (bot.isHit === true) {
-			botEffects[bot.name].hitEffectCountdown = 25;
-			console.log(botEffects);
+			botEffects[bot.name].hitEffectCountdown = 16;
 		}
 
 		ctx.save();
