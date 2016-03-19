@@ -1,0 +1,87 @@
+﻿body {
+	background: gray;
+	font-family: sans-serif;
+	margin: 3px;
+}
+
+.arena {
+	float: left;
+	border: solid 1px black;
+}
+
+.formLabel {
+	width: 75px;
+}
+
+.wrapper {
+	background: white;
+	border: solid 1px black;
+}
+
+.tab-content {
+	padding: 5px;
+}
+
+.error {
+	color: red;
+}
+
+#wrapper {
+	width: 100%;
+}
+
+#rightPanel {
+	float: left;
+	margin-left: 3px;
+	width: 650px;
+}
+
+#tabsContainer {
+	margin-bottom: 3px;
+	padding: 3px;
+	width: 100%;
+	height: 550px;
+	float: left;
+}
+
+#script {
+	width: 100%;
+	height: 350px;
+}
+
+#chatContainer {
+	padding: 0px;
+	margin: 0px;
+	width: 100%;
+	height: 250px;
+	float: left;
+}
+
+#chatForm {
+	width: 100%;
+}
+
+	#chatForm input {
+		width: 645px;
+		margin-left: 1px;
+	}
+
+	#chatForm button {
+		display: none;
+	}
+
+#messages {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	height: 222px;
+	overflow-y: scroll;
+}
+
+	#messages li {
+		padding: 5px 10px;
+	}
+
+		#messages li:nth-child(odd) {
+			background: #eee;
+		}

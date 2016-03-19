@@ -10,17 +10,9 @@ module.exports = class gameState {
 		this.projectiles = [];
 	}
 
-	createBot(name, color, type, ai) {
+	createBot(name, color, ai) {
 		var startingPosition = gameState.determineStartingPosition();
-		var newBot;
-		switch(type) {
-			case "blueBot":
-				newBot = new bot(name, color, startingPosition, ai);
-				break;
-			default:
-				newBot = new bot(name, color, startingPosition, ai);
-		}
-		return newBot;
+		return new bot(name, color, startingPosition, ai);
 	}
 
 	static determineStartingPosition() {
@@ -36,7 +28,6 @@ module.exports = class gameState {
 					(constants.BOT_SIZE() / 2)) + (constants.BOT_SIZE() / 2)
 				)
 			);
-		var coord = new coordinate(x, y);
-		return coord;
+		return new coordinate(x, y);
 	}
 }

@@ -9,43 +9,56 @@ var actionEval = require('./actionEval');
 var projectileEval = require('./projectileEval');
 var gameEngine = require('./gameEngine');
 
+// global variables
+var game = new gamestate();
+var clients = {};
+
+// Configure the web server portion of the node application
 http.listen(process.env.PORT || 3000);
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(bodyParser.urlencoded({
-	extended: true
-}));
-
+app.use(bodyParser.urlencoded({ extended: true }));
 app.get("/", function(req, res) {
 	res.sendFile(__dirname + "/index.html");
 });
 
-app.post("/", function (req, res) {
-	var botAI = new Function('me', 'game', 'moves', req.body.script);
-	var botColor = req.body.color;
-	var botName = req.body.userName;
-	var botType = req.body.type;
-
-	if (game.activeBots[botName] === undefined) {
-		game.activeBots[botName] = game.createBot(botName, botColor, botType, botAI);
-	}
-	io.emit('scoreboard', game.activeBots);
-	res.send('received');
-});
-
-var game = new gamestate();
-
-var clients = {};
-io.on('connection', function(socket) {
+// client socket communications
+io.on('connection', function (socket) {
 	clients[socket.id] = socket;
 	socket.on('disconnect', function() {
 		clients[socket.id] = null;
 	});
+	socket.on('newbot', function (data, callback) {
+		if (game.activeBots[data.name] !== undefined) {
+			callback(false, 'Name must be unique.');
+		} else {
+			var botAI;
+			try {
+				botAI = new Function("me", "game", "moves", data.script);
+				game.activeBots[data.name] = game.createBot(data.name, data.color, botAI);
+				callback(true, "");
+			} catch (err) {
+				callback(false, "Script validation failure: " + err.message);
+			}
+		}
+	});
+	socket.on('message', function (message) {
+		emitMessage(message);
+	});
 	socket.on('reset', function () {
-		console.log('client reset the game');
 		game = new gamestate();
 	});
 });
 
+// send a chat message to each client
+function emitMessage(message) {
+	for (var c in clients) {
+		if (clients[c] !== null) {
+			clients[c].emit('chat', message);
+		}
+	}
+}
+
+// game engine ticket and emit results to all clients
 function gameEngineTick() {
 	gameEngine.tick(game);
 

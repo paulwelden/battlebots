@@ -1,33 +1,52 @@
 ﻿<!DOCTYPE html>
-
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta charset="utf-8" />
-	<title>battlebots</title>
-</head>
-<body style="margin: 0px;">
-	<canvas id="canvas" width="800" height="800" style="float:left;"></canvas>
-	<div><input type="button" value="Reset" id="resetBtn" /></div>
-	<div>Scoreboard:</div>
-	<div id="addNewBot1" name="addNewBot1" style="float:right;">
-		<h2>Add a new BattleBot!</h2>
-		<form action="" method="post" name="userForm" id="userForm">
-			<label for="userName">BattleBot Name:</label>
-			<input type="text" name="userName"/> <br />
-			<label for="color">Color (just kidding):</label>
-			<input type="color" name="color"/><br />
-			<label for="type">BattleBot Type:</label>
-			<input type="text" name="type"/><br />
-			<label>Your AI:</label><br /><br />
-			<label>var ai = function(me, game, moves){</label><br />
-			<textarea rows="10" cols="50" name="script"></textarea><br />
-			<label>}</label><br /><br />
-			<button type="submit">Play!</button>
-		</form>
-	</div>
-
+	<title>AI Battle Bots</title>
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 	<script src="//code.jquery.com/jquery-1.11.1.js"></script>
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<script src="/socket.io/socket.io.js"></script>
 	<script src="bundle.js"></script>
+	<link type="text/css" rel="stylesheet" href="style.css" />
+</head>
+<body>
+	<div id="wrapper">
+		<canvas id="canvas" class="arena" height="800" width="800"></canvas>
+		<div id="rightPanel">
+			<section id="tabsContainer" class="wrapper">
+				<ul class="nav nav-tabs">
+					<li class="active"><a data-toggle="tab" href="#scoreboard">Scoreboard</a></li>
+					<li><a data-toggle="tab" href="#newbot">New Bot</a></li>
+					<li><a data-toggle="tab" href="#admin">Admin</a></li>
+				</ul>
+				<div class="tab-content">
+					<div id="scoreboard" class="tab-pane fade in active">
+						<canvas id="scoreboardCanvas" height="485" width="625"></canvas>
+					</div>
+					<div id="newbot" class="tab-pane fade">
+						<form action="" id="userForm">
+							<label class="formLabel" for="name">Name:</label><input type="text" id="name" /><br />
+							<label class="formLabel" for="color">Color:</label><input type="color" id="color" /><br />
+							<label>var ai = function(me, game, moves) {</label><br />
+							<textarea id="script"></textarea><br />
+							<label>}</label><br /><br />
+							<button type="submit">Play!</button>
+							<label id="newboterror" class="error"></label>
+						</form>
+					</div>
+					<div id="admin" class="tab-pane fade">
+						<p><input type="button" value="Reset" id="resetBtn" /> Clear the arena (remove all bots).</p>
+					</div>
+				</div>
+			</section>
+			<section id="chatContainer" class="wrapper">
+				<ul id="messages"></ul>
+				<form action="" id="chatForm">
+					<input id="chatInput" autocomplete="off" /><button>Send</button>
+				</form>
+			</section>
+		</div>
+	</div>
 </body>
 </html>
