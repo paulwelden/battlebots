@@ -5,7 +5,7 @@ var constants = require('./constants');
 module.exports = class bot {
 	constructor(name, color, startingPosition, ai) {
 		this.name = name;
-0		this.color = color;
+		this.color = color;
 		this.position = startingPosition;
 		this.ai = ai;
 		this.health = 100;
