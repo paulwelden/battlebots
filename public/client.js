@@ -12,9 +12,9 @@ $(document).ready(function () {
 		if (message.length > 0) {
 			socket.emit('message', message);
 			$('#chatInput')[0].value = '';
-		}
+			}
 		e.preventDefault();
-	});
+		});
 
 	$("#userForm").submit(function (e) {
 		$("#newboterror")[0].innerText = "";
